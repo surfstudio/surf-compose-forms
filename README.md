@@ -1,19 +1,19 @@
 ## Compose Forms
 
-![picture](https://github.com/keygenqt/compose-forms/blob/master/data/just-image.png?raw=true)
+![picture](https://github.com/surfstudio/surf-compose-forms/blob/master/data/just-image.png?raw=true)
 
 Field state manager and basic set of validation, fields
 
 ## Connection
 
-![Maven metadata URL](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fartifactory.keygenqt.com%2Fartifactory%2Fopen-source%2Fcom%2Fkeygenqt%2Fforms%2Fcompose-forms%2Fmaven-metadata.xml)
+![Maven metadata URL](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fartifactory.surfstudio.ru%2Fartifactory%2Flibs-release-local%2Fru%2Fsurfstudio%2Fcompose%2Fforms%2Fmaven-metadata.xml)
 
 ```gradle
 repositories {
-    maven("https://artifactory.keygenqt.com/artifactory/open-source")
+    maven("https://artifactory.surfstudio.ru/artifactory/libs-release-local")
 }
 dependencies {
-    implementation("com.keygenqt.forms:compose-forms:{version}")
+    implementation("ru.surfstudio.compose.forms:compose-forms:{version}")
 }
 ```
 
@@ -30,13 +30,13 @@ You can group fields into a form. You can make fields both custom and use ready-
 
 ### Preview
 <p>
-<img src="https://github.com/keygenqt/compose-forms/blob/master/data/vokoscreen-2021-09-14_20-10-40.gif?raw=true" width="33%"/>
+<img src="https://github.com/surfstudio/surf-compose-forms/blob/master/data/vokoscreen-2021-09-14_20-10-40.gif?raw=true" width="33%"/>
 </p>
 
 ## License
 
 ```
-Copyright 2021 Vitaliy Zarubin
+Copyright 2021 Surf LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
