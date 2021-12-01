@@ -13,7 +13,7 @@ repositories {
     maven("https://artifactory.surfstudio.ru/artifactory/libs-release-local")
 }
 dependencies {
-    implementation("ru.surfstudio.compose.forms:compose-forms:{version}")
+    implementation("ru.surfstudio.compose:forms:${version}")
 }
 ```
 
