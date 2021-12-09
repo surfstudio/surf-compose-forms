@@ -11,15 +11,16 @@ val googleAccompanistVersion: String by project
 val material3Version: String by project
 
 // lib info
-version = "0.0.15"
-group = "ru.surfstudio.compose"
+val libVersion: String by project
+val libGroup: String by project
 
 publishing {
     publications {
         register("aar", MavenPublication::class) {
-            groupId = group.toString()
+            version = libVersion
+            groupId = libGroup
             artifactId = project.name
-            artifact("$buildDir/outputs/aar/compose-forms-$version-release.aar")
+            artifact("$buildDir/outputs/aar/compose-forms-$libVersion-release.aar")
         }
     }
 }
@@ -46,7 +47,7 @@ android {
     defaultConfig {
         minSdk = 23
         targetSdk = 31
-        setProperty("archivesBaseName", "compose-forms-$version")
+        setProperty("archivesBaseName", "compose-forms-$libVersion")
     }
 
     composeOptions {
