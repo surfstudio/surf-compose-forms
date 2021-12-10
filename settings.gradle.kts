@@ -17,3 +17,4 @@ pluginManagement {
 
 rootProject.name = "surf-compose-forms"
 include(":forms")
+include(":sample")
