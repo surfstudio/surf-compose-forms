@@ -48,9 +48,9 @@ import ru.surfstudio.compose.forms.R
 import ru.surfstudio.compose.forms.base.FormFieldState
 import ru.surfstudio.compose.forms.base.TextFieldError
 import ru.surfstudio.compose.forms.base.onValueChangeMask
-import com.vdurmont.emoji.EmojiParser
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ru.surfstudio.compose.forms.emoji.EmojiUtils
 
 /**
  * Default form field
@@ -151,7 +151,7 @@ fun FormField(
 
             // filter Emoji
             if (filterEmoji) {
-                EmojiParser.removeAllEmojis(value.text)?.let {
+                EmojiUtils.removeEmoji(value.text)?.let {
                     if (it.length != value.text.length) {
                         scope.launch {
                             Toast.makeText(context, R.string.form_error_emoji, Toast.LENGTH_SHORT)
