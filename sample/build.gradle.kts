@@ -41,7 +41,7 @@ dependencies {
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
-    implementation("androidx.activity:activity-compose:$composeVersion")
+    implementation("androidx.activity:activity-compose:1.4.0")
     debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
