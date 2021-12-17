@@ -48,6 +48,7 @@ android {
         minSdk = 23
         targetSdk = 31
         setProperty("archivesBaseName", "compose-forms-$libVersion")
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     composeOptions {
@@ -70,11 +71,11 @@ android {
 }
 
 dependencies {
-    //todo use EmojiUtils instead
-    implementation("com.vdurmont:emoji-java:5.1.1")
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
     implementation("com.google.accompanist:accompanist-insets:$googleAccompanistVersion")
     implementation("com.google.accompanist:accompanist-insets-ui:$googleAccompanistVersion")
     implementation("androidx.compose.material3:material3:$material3Version")
+
+    testImplementation("junit:junit:4.13.2")
 }

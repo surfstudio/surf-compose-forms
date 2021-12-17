@@ -26,7 +26,6 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
-import kotlinx.coroutines.runBlocking
 
 /**
  * State management TextField
