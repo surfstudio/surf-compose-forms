@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Compose forms sample</string>
+
+    <!-- Errors -->
+    <string name="error_field_min_length">Minimum length %s characters</string>
+    <string name="error_field_max_length">Maximum length %s characters</string>
+    <string name="is_incorrect">Is incorrect</string>
+
+    <!-- Form-->
+    <string name="form_name">Name</string>
+    <string name="form_email">Email</string>
+    <string name="form_phone">Phone</string>
+    <string name="form_card">Card</string>
+    <string name="form_button_submit">Submit</string>
 </resources>

@@ -22,11 +22,16 @@ android {
         }
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = composeVersion
+    }
+
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = composeVersion
+
+    kotlinOptions {
+        freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
     }
 }
 

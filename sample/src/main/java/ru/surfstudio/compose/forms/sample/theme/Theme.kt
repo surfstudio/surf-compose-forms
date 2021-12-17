@@ -5,34 +5,27 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-
-private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
-)
-
-private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
-)
+import androidx.compose.ui.res.colorResource
+import ru.surfstudio.compose.forms.sample.R
 
 @Composable
-fun TestTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+fun TestTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+    val darkColorPalette = darkColors(
+        primary = colorResource(id = R.color.purple_200),
+        primaryVariant = colorResource(id = R.color.purple_700),
+        secondary = colorResource(id = R.color.teal_200)
+    )
+
+    val lightColorPalette = lightColors(
+        primary = colorResource(id = R.color.purple_500),
+        primaryVariant = colorResource(id = R.color.purple_700),
+        secondary = colorResource(id = R.color.teal_200)
+    )
+
     val colors = if (darkTheme) {
-        DarkColorPalette
+        darkColorPalette
     } else {
-        LightColorPalette
+        lightColorPalette
     }
 
     MaterialTheme(

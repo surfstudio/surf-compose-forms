@@ -16,7 +16,6 @@
  
 package ru.surfstudio.compose.forms.fields
 
-import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -44,12 +43,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.insets.LocalWindowInsets
-import ru.surfstudio.compose.forms.R
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.surfstudio.compose.forms.base.FormFieldState
 import ru.surfstudio.compose.forms.base.TextFieldError
 import ru.surfstudio.compose.forms.base.onValueChangeMask
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import ru.surfstudio.compose.forms.emoji.EmojiUtils
 
 /**
@@ -153,10 +151,6 @@ fun FormField(
             if (filterEmoji) {
                 EmojiUtils.removeEmoji(value.text)?.let {
                     if (it.length != value.text.length) {
-                        scope.launch {
-                            Toast.makeText(context, R.string.form_error_emoji, Toast.LENGTH_SHORT)
-                                .show()
-                        }
                         value = value.copy(text = it)
                     }
                 }
