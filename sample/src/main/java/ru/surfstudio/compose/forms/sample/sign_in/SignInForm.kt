@@ -68,7 +68,6 @@ fun SignInForm(
     val requesterFieldEmoji = remember { FocusRequester() }
     val requesterFieldPhoneUA = remember { FocusRequester() }
     val requesterFieldPhoneRU = remember { FocusRequester() }
-    val requesterFieldPhoneCustom = remember { FocusRequester() }
     val requesterFieldCard = remember { FocusRequester() }
     val requesterFieldPassword = remember { FocusRequester() }
 
@@ -129,7 +128,7 @@ fun SignInForm(
         enabled = !loading,
         state = formFields.get(SignInFieldsForm.SignInPhoneRU),
         imeAction = ImeAction.Next,
-        keyboardActions = KeyboardActions(onNext = { requesterFieldPhoneCustom.requestFocus() }),
+        keyboardActions = KeyboardActions(onNext = { requesterFieldCard.requestFocus() }),
         mask = "+7 (###) ###-##-##",
         placeholder = "+7 (000) 000-000-000",
     )
