@@ -28,6 +28,9 @@ You can add create custom states or use default states
 ### ![picture](https://github.com/google/material-design-icons/blob/master/png/action/grading/materialicons/18dp/1x/baseline_grading_black_18dp.png?raw=true) [Systematization TextField and States](https://keygenqt.github.io/compose-forms/systematizationTextField)
 You can group fields into a form. You can make fields both custom and use ready-made
 
+### ![picture](https://github.com/google/material-design-icons/blob/master/png/action/check_circle/materialicons/18dp/1x/baseline_check_circle_black_18dp.png?raw=true) DotsNumbers
+Component with dots for code entry
+
 ### Preview
 <p>
 <img src="https://github.com/surfstudio/surf-compose-forms/blob/master/data/vokoscreen-2021-09-14_20-10-40.gif?raw=true" width="33%"/>

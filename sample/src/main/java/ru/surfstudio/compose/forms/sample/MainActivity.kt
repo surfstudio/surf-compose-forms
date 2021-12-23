@@ -20,11 +20,14 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import ru.surfstudio.compose.forms.other.DotsNumbers
 import ru.surfstudio.compose.forms.sample.sign_in.SignInBody
 import ru.surfstudio.compose.forms.sample.theme.TestTheme
 
@@ -42,8 +45,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
     TestTheme {
-        Surface {
-            SignInBody()
+        Surface(modifier = Modifier.fillMaxSize()) {
+            DotsNumbers()
         }
     }
 }
