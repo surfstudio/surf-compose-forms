@@ -13,24 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.surfstudio.compose.forms.states
+package ru.surfstudio.compose.forms.sample
 
-import ru.surfstudio.compose.forms.base.FormFieldState
-import ru.surfstudio.compose.forms.validation.getErrorIsBlank
-import ru.surfstudio.compose.forms.validation.getErrorIsNotEmail
-import ru.surfstudio.compose.forms.validation.getErrorIsNotPhone
-
-/**
- * State with validate phone
- *
- * @since 0.0.2
- * @author Vitaliy Zarubin
- */
-class PhoneStateValidate : FormFieldState(checkValid = { target: String ->
-    listOfNotNull(
-        getErrorIsNotPhone(target),
-    )
-})
-
-
-
+internal sealed class MainScreen(val route: String) {
+    object Start : MainScreen("start")
+    object Forms : MainScreen("forms")
+    object Dots : MainScreen("dots")
+}

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
 package ru.surfstudio.compose.forms.sample.sign_in
 
 import ru.surfstudio.compose.forms.base.FormFieldState

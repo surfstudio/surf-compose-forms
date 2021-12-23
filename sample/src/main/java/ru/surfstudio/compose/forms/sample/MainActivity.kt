@@ -13,18 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
 package ru.surfstudio.compose.forms.sample
 
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import ru.surfstudio.compose.forms.sample.dots.DotsScreen
+import ru.surfstudio.compose.forms.sample.dots.DotsViewModel
 import ru.surfstudio.compose.forms.sample.sign_in.SignInBody
 import ru.surfstudio.compose.forms.sample.theme.TestTheme
 
@@ -41,17 +50,52 @@ class MainActivity : ComponentActivity() {
 @ExperimentalComposeUiApi
 @Composable
 fun MainScreen() {
-    TestTheme {
-        Surface {
-            SignInBody()
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = MainScreen.Start.route) {
+        composable(route = MainScreen.Start.route) {
+            StartScreen(navController)
+        }
+        composable(route = MainScreen.Forms.route) {
+            FormsScreen()
+        }
+        composable(route = MainScreen.Dots.route) {
+            DotsScreen(DotsViewModel())
         }
     }
 }
 
-@Preview("Light", device = Devices.PIXEL_2_XL)
-@Preview("Dark", uiMode = Configuration.UI_MODE_NIGHT_YES, device = Devices.PIXEL_2_XL)
+@Composable
+fun StartScreen(navController: NavController) {
+    TestTheme {
+        Surface(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Column {
+                Button(
+                    modifier = Modifier.padding(16.dp),
+                    onClick = { navController.navigate(MainScreen.Forms.route) }
+                ) {
+                    Text(text = "Show forms")
+                }
+                Button(
+                    modifier = Modifier.padding(16.dp),
+                    onClick = { navController.navigate(MainScreen.Dots.route) }
+                ) {
+                    Text(text = "Show dots")
+                }
+            }
+        }
+    }
+}
+
 @ExperimentalComposeUiApi
 @Composable
-fun MainScreenPreview() {
-    MainScreen()
+fun FormsScreen() {
+    TestTheme {
+        Surface(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            SignInBody()
+        }
+    }
 }
