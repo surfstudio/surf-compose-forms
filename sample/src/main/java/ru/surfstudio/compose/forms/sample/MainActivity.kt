@@ -32,7 +32,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import ru.surfstudio.compose.forms.other.DotsNumbers
+import ru.surfstudio.compose.forms.sample.dots.DotsScreen
+import ru.surfstudio.compose.forms.sample.dots.DotsViewModel
 import ru.surfstudio.compose.forms.sample.sign_in.SignInBody
 import ru.surfstudio.compose.forms.sample.theme.TestTheme
 
@@ -58,7 +59,7 @@ fun MainScreen() {
             FormsScreen()
         }
         composable(route = MainScreen.Dots.route) {
-            DotsScreen()
+            DotsScreen(DotsViewModel())
         }
     }
 }
@@ -95,17 +96,6 @@ fun FormsScreen() {
             modifier = Modifier.fillMaxSize()
         ) {
             SignInBody()
-        }
-    }
-}
-
-@Composable
-fun DotsScreen() {
-    TestTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            DotsNumbers()
         }
     }
 }

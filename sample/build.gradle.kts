@@ -43,6 +43,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
     implementation("androidx.activity:activity-compose:1.4.0")
     implementation("androidx.navigation:navigation-compose:2.4.0-rc01")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+
     debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
