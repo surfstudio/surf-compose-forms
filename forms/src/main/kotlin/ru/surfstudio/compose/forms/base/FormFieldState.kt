@@ -113,6 +113,7 @@ open class FormFieldState(
     fun default(value: String): FormFieldState {
         _default = TextFieldValue(text = value)
         _text = _default
+        positionToEnd()
         return this
     }
 
