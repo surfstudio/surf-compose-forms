@@ -18,9 +18,9 @@ package ru.surfstudio.compose.forms.sample
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -113,11 +113,21 @@ fun FormsScreen() {
 @ExperimentalComposeUiApi
 @Composable
 fun CustomFormsScreen() {
+    val listState = rememberScrollState()
     TestTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            CustomForm()
+        Surface {
+            Column(
+                modifier = Modifier
+                    .padding(start = 16.dp, end = 16.dp)
+                    .fillMaxHeight()
+                    .verticalScroll(listState)
+            ) {
+                Spacer(modifier = Modifier.padding(24.dp))
+
+                CustomForm()
+
+                Spacer(modifier = Modifier.padding(24.dp))
+            }
         }
     }
 }

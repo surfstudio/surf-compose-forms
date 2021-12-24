@@ -28,6 +28,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.onSizeChanged
@@ -81,6 +82,7 @@ fun CustomFormField(
     fieldIsPassword: Boolean = false,
     fieldIsShowLength: Boolean = false,
     fieldEndIcon: Painter? = null,
+    fieldEndTint: Color = colorSecondary,
     fieldTextStyle: TextStyle = TextStyle.Default,
     // filters settings
     filterChar: String? = null,
@@ -277,6 +279,7 @@ fun CustomFormField(
                         Image(
                             modifier = Modifier.align(alignment = Alignment.CenterEnd),
                             painter = fieldEndIcon,
+                            colorFilter = ColorFilter.tint(fieldEndTint),
                             contentDescription = null
                         )
                     }

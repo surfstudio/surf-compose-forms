@@ -54,12 +54,30 @@ fun SignInForm(
 
     // Create from state
     val formFields = FormFieldsState().apply {
-        add(SignInFieldsForm.SignInEmail, remember { SignInFieldsForm.SignInEmail.state })
-        add(SignInFieldsForm.SignInPassword, remember { SignInFieldsForm.SignInPassword.state })
-        add(SignInFieldsForm.SignInNoEmoji, remember { SignInFieldsForm.SignInNoEmoji.state })
-        add(SignInFieldsForm.SignInPhoneUA, remember { SignInFieldsForm.SignInPhoneUA.state })
-        add(SignInFieldsForm.SignInPhoneRU, remember { SignInFieldsForm.SignInPhoneRU.state })
-        add(SignInFieldsForm.SignInCard, remember { SignInFieldsForm.SignInCard.state })
+        add(
+            SignInFieldsForm.SignInEmail,
+            remember { SignInFieldsForm.SignInEmail.state.default("") }
+        )
+        add(
+            SignInFieldsForm.SignInPassword,
+            remember { SignInFieldsForm.SignInPassword.state.default("") }
+        )
+        add(
+            SignInFieldsForm.SignInNoEmoji,
+            remember { SignInFieldsForm.SignInNoEmoji.state.default("") }
+        )
+        add(
+            SignInFieldsForm.SignInPhoneUA,
+            remember { SignInFieldsForm.SignInPhoneUA.state.default("") }
+        )
+        add(
+            SignInFieldsForm.SignInPhoneRU,
+            remember { SignInFieldsForm.SignInPhoneRU.state.default("") }
+        )
+        add(
+            SignInFieldsForm.SignInCard,
+            remember { SignInFieldsForm.SignInCard.state.default("") }
+        )
     }
 
     // For focus to field
