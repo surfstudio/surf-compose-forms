@@ -76,6 +76,7 @@ dependencies {
     implementation("com.google.accompanist:accompanist-insets:$googleAccompanistVersion")
     implementation("com.google.accompanist:accompanist-insets-ui:$googleAccompanistVersion")
     implementation("androidx.compose.material3:material3:$material3Version")
+    implementation("ru.surfstudio.compose:modifier-ext:0.0.12")
 
     testImplementation("junit:junit:4.13.2")
 }
