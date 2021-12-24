@@ -32,6 +32,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import ru.surfstudio.compose.forms.sample.custom.CustomForm
 import ru.surfstudio.compose.forms.sample.dots.DotsScreen
 import ru.surfstudio.compose.forms.sample.dots.DotsViewModel
 import ru.surfstudio.compose.forms.sample.sign_in.SignInBody
@@ -58,6 +59,9 @@ fun MainScreen() {
         composable(route = MainScreen.Forms.route) {
             FormsScreen()
         }
+        composable(route = MainScreen.CustomForms.route) {
+            CustomFormsScreen()
+        }
         composable(route = MainScreen.Dots.route) {
             DotsScreen(DotsViewModel())
         }
@@ -79,6 +83,12 @@ fun StartScreen(navController: NavController) {
                 }
                 Button(
                     modifier = Modifier.padding(16.dp),
+                    onClick = { navController.navigate(MainScreen.CustomForms.route) }
+                ) {
+                    Text(text = "Show custom forms")
+                }
+                Button(
+                    modifier = Modifier.padding(16.dp),
                     onClick = { navController.navigate(MainScreen.Dots.route) }
                 ) {
                     Text(text = "Show dots")
@@ -96,6 +106,18 @@ fun FormsScreen() {
             modifier = Modifier.fillMaxSize()
         ) {
             SignInBody()
+        }
+    }
+}
+
+@ExperimentalComposeUiApi
+@Composable
+fun CustomFormsScreen() {
+    TestTheme {
+        Surface(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            CustomForm()
         }
     }
 }

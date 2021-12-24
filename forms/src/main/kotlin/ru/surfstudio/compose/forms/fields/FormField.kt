@@ -107,7 +107,6 @@ fun FormField(
     contentError: @Composable (() -> Unit)? = null,
 ) {
 
-    val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
     val sizeDp = with(LocalDensity.current) {
@@ -148,7 +147,7 @@ fun FormField(
 
             // filter Emoji
             if (filterEmoji) {
-                EmojiUtils.removeEmoji(value.text)?.let {
+                EmojiUtils.removeEmoji(value.text).let {
                     if (it.length != value.text.length) {
                         value = value.copy(text = it)
                     }
