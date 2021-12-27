@@ -27,11 +27,3 @@ subprojects {
         }
     }
 }
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven("https://artifactory.surfstudio.ru/artifactory/libs-release-local")
-    }
-}
