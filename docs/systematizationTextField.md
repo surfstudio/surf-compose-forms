@@ -12,7 +12,13 @@ Default fields form
 * FormFieldPhone
 * FormFieldNumber
 
-#### FormFieldPhone and FormFieldNumber
+Custom fields form
+* CustomFormField
+* CustomFieldText
+* CustomFieldPhone
+* CustomFormFieldPassword
+
+#### FormFieldPhone, CustomFieldPhone, FormFieldNumber
 
 Numeric fields have the parameter mask. Examples of mask:
 * +380 (###) ###-##-##
@@ -76,7 +82,7 @@ fun FormField(
 )
 ```
 
-#### Usage with form -> [@see](https://github.com/keygenqt/android-DemoCompose/blob/master/app/src/main/kotlin/com/keygenqt/demo_contacts/modules/other/ui/form/SignInFieldsForm.kt#L24) <-
+#### Usage with form -> [@see](https://github.com/surfstudio/surf-compose-forms/blob/master/sample/src/main/java/ru/surfstudio/compose/forms/sample/sign_in/SignInFieldsForm.kt#L22) <-
 ```kotlin
 // Create form
 enum class SignInFieldsForm(val state: FormFieldState) : FormStates {
@@ -85,7 +91,7 @@ enum class SignInFieldsForm(val state: FormFieldState) : FormStates {
 }
 ```
 
-#### Example composable form -> [@see](https://github.com/keygenqt/android-DemoCompose/blob/master/app/src/main/kotlin/com/keygenqt/demo_contacts/modules/other/ui/screens/signIn/SignInForm.kt#L52) <-
+#### Example composable form -> [@see](https://github.com/surfstudio/surf-compose-forms/blob/master/sample/src/main/java/ru/surfstudio/compose/forms/sample/sign_in/SignInForm.kt#L47) <-
 ```kotlin
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
