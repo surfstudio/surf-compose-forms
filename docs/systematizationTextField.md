@@ -16,7 +16,7 @@ Custom fields form
 * CustomFormField
 * CustomFieldText
 * CustomFieldPhone
-* CustomFormFieldPassword
+* CustomFieldPassword
 
 #### FormFieldPhone, CustomFieldPhone, FormFieldNumber
 

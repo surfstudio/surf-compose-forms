@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.surfstudio.compose.forms.fields.custom
+package ru.surfstudio.compose.forms.fields.custom.overload
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.IntRange
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.runtime.Composable
@@ -25,30 +23,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import ru.surfstudio.compose.forms.R
 import ru.surfstudio.compose.forms.base.FormFieldState
-
-private val DEFAULT_PASSWORD_FILTER =
-    (('a'..'z') + ('A'..'Z') + ('0'..'9') + ".,:;?!*+%-<>@[]{}/\\_\$#")
-        .joinToString("")
+import ru.surfstudio.compose.forms.fields.custom.CustomFormField
 
 /**
- * Form field password
+ * Form field phone
  *
  * @author Vitaliy Zarubin
  */
 @Composable
-fun CustomFormFieldPassword(
+fun CustomFieldPhone(
     fieldLabel: String,
     modifier: Modifier = Modifier,
-    keyboardType: KeyboardType = KeyboardType.Password,
-    @DrawableRes icVisibilityOff: Int = R.drawable.ic_visibility_off,
-    @DrawableRes icVisibilityOn: Int = R.drawable.ic_visibility,
+    filterMask: String = "+7 (###) ### ## ##",
+    keyboardType: KeyboardType = KeyboardType.Phone,
     formFieldValidate: Boolean = true,
     formFieldState: FormFieldState = remember { FormFieldState() },
     enabled: Boolean = true,
-    filterChar: String = DEFAULT_PASSWORD_FILTER,
-    @IntRange(from = 1) filterMaxLength: Int = 20,
     imeAction: ImeAction = ImeAction.Next,
     keyboardActions: KeyboardActions = KeyboardActions(),
     onChange: () -> Unit = {},
@@ -56,14 +47,9 @@ fun CustomFormFieldPassword(
 ) = CustomFormField(
     modifier = modifier.fillMaxWidth(),
     fieldLabel = fieldLabel,
-    fieldIsPassword = true,
-    filterEmoji = true,
-    filterChar = filterChar,
+    filterMask = filterMask,
     keyboardType = keyboardType,
-    icVisibilityOff = icVisibilityOff,
-    icVisibilityOn = icVisibilityOn,
     formFieldValidate = formFieldValidate,
-    filterMaxLength = filterMaxLength,
     formFieldState = formFieldState,
     enabled = enabled,
     imeAction = imeAction,

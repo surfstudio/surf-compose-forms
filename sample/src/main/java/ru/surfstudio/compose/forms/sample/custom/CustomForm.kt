@@ -36,9 +36,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.surfstudio.compose.forms.base.FormFieldState
 import ru.surfstudio.compose.forms.base.FormFieldsState
-import ru.surfstudio.compose.forms.fields.custom.CustomFieldPhone
-import ru.surfstudio.compose.forms.fields.custom.CustomFieldText
-import ru.surfstudio.compose.forms.fields.custom.CustomFormFieldPassword
+import ru.surfstudio.compose.forms.fields.custom.overload.*
 import ru.surfstudio.compose.forms.sample.R
 import ru.surfstudio.compose.forms.sample.custom.CustomFieldsForm.*
 import ru.surfstudio.compose.forms.validation.getErrorIsBlank
@@ -117,8 +115,8 @@ fun CustomForm() {
 
     Spacer(modifier = Modifier.size(padding))
 
-    // filed password
-    CustomFormFieldPassword(
+    // field password
+    CustomFieldPassword(
         fieldLabel = "Password",
         formFieldValidate = fromValidate,
         formFieldState = formFields.get(CustomPassword),
@@ -131,7 +129,7 @@ fun CustomForm() {
 
     Spacer(modifier = Modifier.size(padding))
 
-    // filed Fname
+    // field Fname
     CustomFieldText(
         fieldLabel = "Fname",
         filterMaxLength = 10,
@@ -146,7 +144,7 @@ fun CustomForm() {
 
     Spacer(modifier = Modifier.size(padding))
 
-    // filed Lname
+    // field Lname
     CustomFieldText(
         modifier = Modifier.fillMaxWidth(),
         fieldLabel = "Lname",
@@ -163,7 +161,7 @@ fun CustomForm() {
 
     Spacer(modifier = Modifier.size(padding))
 
-    // filed Date
+    // field Date
     CustomFieldText(
         modifier = Modifier.fillMaxWidth(),
         fieldLabel = "Date",
@@ -184,7 +182,7 @@ fun CustomForm() {
 
     Spacer(modifier = Modifier.size(padding))
 
-    // filed Experience
+    // field Experience
     CustomFieldText(
         modifier = Modifier.fillMaxWidth(),
         fieldLabel = "Experience",
