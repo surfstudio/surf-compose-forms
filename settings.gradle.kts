@@ -1,7 +1,4 @@
 pluginManagement {
-    val artifactoryVersions: String by settings
-    val spotlessVersions: String by settings
-
     repositories {
         gradlePluginPortal()
         google()
@@ -9,9 +6,17 @@ pluginManagement {
     }
     plugins {
         // https://www.jfrog.com/confluence/display/JFROG/Gradle+Artifactory+Plugin
-        id("com.jfrog.artifactory") version artifactoryVersions
+        id("com.jfrog.artifactory") version "4.24.16"
         // https://github.com/diffplug/spotless
-        id("com.diffplug.spotless") version spotlessVersions
+        id("com.diffplug.spotless") version "5.12.5"
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://artifactory.surfstudio.ru/artifactory/libs-release-local")
     }
 }
 
