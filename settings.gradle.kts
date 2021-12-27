@@ -15,6 +15,14 @@ pluginManagement {
     }
 }
 
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://artifactory.surfstudio.ru/artifactory/libs-release-local")
+    }
+}
+
 rootProject.name = "surf-compose-forms"
 include(":forms")
 include(":sample")
