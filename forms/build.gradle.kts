@@ -7,6 +7,7 @@ plugins {
 
 // dependencies versions
 val composeVersion: String by project
+val googleAccompanistVersion: String by project
 
 // lib info
 val libVersion: String by project
@@ -71,8 +72,8 @@ android {
 dependencies {
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
-    implementation("com.google.accompanist:accompanist-insets:0.20.2")
-    implementation("com.google.accompanist:accompanist-insets-ui:0.20.0")
+    implementation("com.google.accompanist:accompanist-insets:$googleAccompanistVersion")
+    implementation("com.google.accompanist:accompanist-insets-ui:$googleAccompanistVersion")
     implementation("androidx.compose.material3:material3:1.0.0-alpha02")
     implementation("ru.surfstudio.compose:modifier-ext:0.0.12")
 
