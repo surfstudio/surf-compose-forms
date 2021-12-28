@@ -17,6 +17,7 @@ package ru.surfstudio.compose.forms.fields.custom.overload
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -47,6 +48,11 @@ fun CustomFieldPhone(
     colorLine: Color = Color.LightGray,
     cursorBrush: Brush = SolidColor(colorDefault),
     fieldEndTint: Color? = colorSecondary,
+    // text styles
+    upperLabelTextStyle: TextStyle = LocalTextStyle.current,
+    innerLabelTextStyle: TextStyle = LocalTextStyle.current,
+    errorTextStyle: TextStyle = LocalTextStyle.current,
+    counterTextStyle: TextStyle = LocalTextStyle.current,
     fieldTextStyle: TextStyle = TextStyle.Default,
     // field settings
     filterMask: String = "+7 (###) ### ## ##",
@@ -66,6 +72,10 @@ fun CustomFieldPhone(
     colorLine = colorLine,
     cursorBrush = cursorBrush,
     fieldEndTint = fieldEndTint,
+    topLabelTextStyle = upperLabelTextStyle,
+    innerLabelTextStyle = innerLabelTextStyle,
+    errorTextStyle = errorTextStyle,
+    counterTextStyle = counterTextStyle,
     fieldTextStyle = fieldTextStyle,
     fieldLabel = fieldLabel,
     filterMask = filterMask,

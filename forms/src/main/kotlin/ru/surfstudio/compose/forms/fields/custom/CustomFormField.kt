@@ -28,6 +28,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
+import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -95,6 +96,11 @@ fun CustomFormField(
     fieldIsShowLength: Boolean = false,
     fieldEndIcon: Painter? = null,
     fieldEndTint: Color? = colorSecondary,
+    // text styles
+    topLabelTextStyle: TextStyle = LocalTextStyle.current,
+    innerLabelTextStyle: TextStyle = LocalTextStyle.current,
+    errorTextStyle: TextStyle = LocalTextStyle.current,
+    counterTextStyle: TextStyle = LocalTextStyle.current,
     fieldTextStyle: TextStyle = TextStyle.Default,
     // filters settings
     filterChar: String? = null,
@@ -152,7 +158,8 @@ fun CustomFormField(
                         )
                         .padding(bottom = 4.dp),
                     text = fieldLabel,
-                    color = colorSecondary
+                    color = colorSecondary,
+                    style = topLabelTextStyle
                 )
                 BasicTextField(
                     modifier = Modifier
@@ -307,7 +314,8 @@ fun CustomFormField(
                             .isEmpty()
                     ),
                 text = fieldLabel,
-                color = colorSecondary
+                color = colorSecondary,
+                style = innerLabelTextStyle
             )
         }
         Spacer(
@@ -328,7 +336,8 @@ fun CustomFormField(
                     Text(
                         modifier = Modifier.align(Alignment.TopStart),
                         text = formFieldState.getError(context).orEmpty(),
-                        color = colorError
+                        color = colorError,
+                        style = errorTextStyle
                     )
                 }
             }
@@ -339,7 +348,8 @@ fun CustomFormField(
                             .align(Alignment.TopEnd)
                             .padding(start = 4.dp),
                         text = "${formFieldState.getValue().length}/$filterMaxLength",
-                        color = colorSecondary
+                        color = colorSecondary,
+                        style = counterTextStyle
                     )
                 }
             }

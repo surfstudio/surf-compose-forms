@@ -19,6 +19,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -57,6 +58,11 @@ fun CustomFieldPassword(
     colorLine: Color = Color.LightGray,
     cursorBrush: Brush = SolidColor(colorDefault),
     fieldEndTint: Color? = colorSecondary,
+    // text styles
+    upperLabelTextStyle: TextStyle = LocalTextStyle.current,
+    innerLabelTextStyle: TextStyle = LocalTextStyle.current,
+    errorTextStyle: TextStyle = LocalTextStyle.current,
+    counterTextStyle: TextStyle = LocalTextStyle.current,
     fieldTextStyle: TextStyle = TextStyle.Default,
     // field settings
     formFieldValidate: Boolean = true,
@@ -79,6 +85,10 @@ fun CustomFieldPassword(
     colorLine = colorLine,
     cursorBrush = cursorBrush,
     fieldEndTint = fieldEndTint,
+    topLabelTextStyle = upperLabelTextStyle,
+    innerLabelTextStyle = innerLabelTextStyle,
+    errorTextStyle = errorTextStyle,
+    counterTextStyle = counterTextStyle,
     fieldTextStyle = fieldTextStyle,
     fieldLabel = fieldLabel,
     fieldIsPassword = true,

@@ -18,6 +18,7 @@ package ru.surfstudio.compose.forms.fields.custom.overload
 import androidx.annotation.IntRange
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -56,6 +57,11 @@ fun CustomFieldText(
     maxLines: Int = 5,
     fieldEndIcon: Painter? = null,
     fieldEndTint: Color? = colorSecondary,
+    // text styles
+    upperLabelTextStyle: TextStyle = LocalTextStyle.current,
+    innerLabelTextStyle: TextStyle = LocalTextStyle.current,
+    errorTextStyle: TextStyle = LocalTextStyle.current,
+    counterTextStyle: TextStyle = LocalTextStyle.current,
     fieldTextStyle: TextStyle = TextStyle.Default,
     @IntRange(from = 1) filterMaxLength: Int = Int.MAX_VALUE,
     enabled: Boolean = true,
@@ -78,6 +84,10 @@ fun CustomFieldText(
     maxLines = maxLines,
     fieldEndIcon = fieldEndIcon,
     fieldEndTint = fieldEndTint,
+    topLabelTextStyle = upperLabelTextStyle,
+    innerLabelTextStyle = innerLabelTextStyle,
+    errorTextStyle = errorTextStyle,
+    counterTextStyle = counterTextStyle,
     fieldTextStyle = fieldTextStyle,
     filterMaxLength = filterMaxLength,
     enabled = enabled,
