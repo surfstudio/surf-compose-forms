@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -54,6 +55,7 @@ fun DotsNumbers(
     inactiveColor: Color = Color.Gray,
     errorColor: Color = Color.Red,
     succeedColor: Color = Color.Green,
+    errorTextStyle: TextStyle = LocalTextStyle.current,
     indicatorSize: Dp = 10.dp,
     spacing: Dp = 24.dp,
     indicatorShape: Shape = CircleShape,
@@ -213,6 +215,7 @@ fun DotsNumbers(
                 color = errorColor,
                 textAlign = TextAlign.Center,
                 text = error,
+                style = errorTextStyle
             )
         } ?: Spacer(modifier = Modifier.size(22.dp))
     }
