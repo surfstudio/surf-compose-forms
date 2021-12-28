@@ -59,7 +59,7 @@ fun CustomFieldPassword(
     cursorBrush: Brush = SolidColor(colorDefault),
     fieldEndTint: Color? = colorSecondary,
     // text styles
-    upperLabelTextStyle: TextStyle = LocalTextStyle.current,
+    topLabelTextStyle: TextStyle = LocalTextStyle.current,
     innerLabelTextStyle: TextStyle = LocalTextStyle.current,
     errorTextStyle: TextStyle = LocalTextStyle.current,
     counterTextStyle: TextStyle = LocalTextStyle.current,
@@ -85,7 +85,7 @@ fun CustomFieldPassword(
     colorLine = colorLine,
     cursorBrush = cursorBrush,
     fieldEndTint = fieldEndTint,
-    topLabelTextStyle = upperLabelTextStyle,
+    topLabelTextStyle = topLabelTextStyle,
     innerLabelTextStyle = innerLabelTextStyle,
     errorTextStyle = errorTextStyle,
     counterTextStyle = counterTextStyle,

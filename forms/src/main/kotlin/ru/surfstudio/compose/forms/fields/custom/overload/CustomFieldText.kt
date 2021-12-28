@@ -58,7 +58,7 @@ fun CustomFieldText(
     fieldEndIcon: Painter? = null,
     fieldEndTint: Color? = colorSecondary,
     // text styles
-    upperLabelTextStyle: TextStyle = LocalTextStyle.current,
+    topLabelTextStyle: TextStyle = LocalTextStyle.current,
     innerLabelTextStyle: TextStyle = LocalTextStyle.current,
     errorTextStyle: TextStyle = LocalTextStyle.current,
     counterTextStyle: TextStyle = LocalTextStyle.current,
@@ -84,7 +84,7 @@ fun CustomFieldText(
     maxLines = maxLines,
     fieldEndIcon = fieldEndIcon,
     fieldEndTint = fieldEndTint,
-    topLabelTextStyle = upperLabelTextStyle,
+    topLabelTextStyle = topLabelTextStyle,
     innerLabelTextStyle = innerLabelTextStyle,
     errorTextStyle = errorTextStyle,
     counterTextStyle = counterTextStyle,
