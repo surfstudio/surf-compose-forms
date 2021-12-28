@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import ru.surfstudio.compose.forms.base.FormFieldState
@@ -54,6 +55,7 @@ fun CustomFieldText(
     formFieldState: FormFieldState = remember { FormFieldState() },
     maxLines: Int = 5,
     fieldEndIcon: Painter? = null,
+    fieldTextStyle: TextStyle = TextStyle.Default,
     @IntRange(from = 1) filterMaxLength: Int = Int.MAX_VALUE,
     enabled: Boolean = true,
     imeAction: ImeAction = ImeAction.None,
@@ -74,6 +76,7 @@ fun CustomFieldText(
     formFieldState = formFieldState,
     maxLines = maxLines,
     fieldEndIcon = fieldEndIcon,
+    fieldTextStyle = fieldTextStyle,
     filterMaxLength = filterMaxLength,
     enabled = enabled,
     imeAction = imeAction,

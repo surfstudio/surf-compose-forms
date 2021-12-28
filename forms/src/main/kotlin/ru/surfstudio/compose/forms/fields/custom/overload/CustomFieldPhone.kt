@@ -25,6 +25,7 @@ import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import ru.surfstudio.compose.forms.base.FormFieldState
@@ -45,6 +46,7 @@ fun CustomFieldPhone(
     colorError: Color = Color.Red,
     colorLine: Color = Color.LightGray,
     cursorBrush: Brush = SolidColor(colorDefault),
+    fieldTextStyle: TextStyle = TextStyle.Default,
     // field settings
     filterMask: String = "+7 (###) ### ## ##",
     keyboardType: KeyboardType = KeyboardType.Phone,
@@ -62,6 +64,7 @@ fun CustomFieldPhone(
     colorError = colorError,
     colorLine = colorLine,
     cursorBrush = cursorBrush,
+    fieldTextStyle = fieldTextStyle,
     fieldLabel = fieldLabel,
     filterMask = filterMask,
     keyboardType = keyboardType,
