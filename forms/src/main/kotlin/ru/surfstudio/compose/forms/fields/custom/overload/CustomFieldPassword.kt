@@ -56,6 +56,7 @@ fun CustomFieldPassword(
     colorError: Color = Color.Red,
     colorLine: Color = Color.LightGray,
     cursorBrush: Brush = SolidColor(colorDefault),
+    fieldEndTint: Color? = colorSecondary,
     fieldTextStyle: TextStyle = TextStyle.Default,
     // field settings
     formFieldValidate: Boolean = true,
@@ -77,6 +78,7 @@ fun CustomFieldPassword(
     colorError = colorError,
     colorLine = colorLine,
     cursorBrush = cursorBrush,
+    fieldEndTint = fieldEndTint,
     fieldTextStyle = fieldTextStyle,
     fieldLabel = fieldLabel,
     fieldIsPassword = true,

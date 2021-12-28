@@ -46,6 +46,7 @@ fun CustomFieldPhone(
     colorError: Color = Color.Red,
     colorLine: Color = Color.LightGray,
     cursorBrush: Brush = SolidColor(colorDefault),
+    fieldEndTint: Color? = colorSecondary,
     fieldTextStyle: TextStyle = TextStyle.Default,
     // field settings
     filterMask: String = "+7 (###) ### ## ##",
@@ -64,6 +65,7 @@ fun CustomFieldPhone(
     colorError = colorError,
     colorLine = colorLine,
     cursorBrush = cursorBrush,
+    fieldEndTint = fieldEndTint,
     fieldTextStyle = fieldTextStyle,
     fieldLabel = fieldLabel,
     filterMask = filterMask,
