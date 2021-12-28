@@ -94,7 +94,7 @@ fun CustomFormField(
     fieldIsPassword: Boolean = false,
     fieldIsShowLength: Boolean = false,
     fieldEndIcon: Painter? = null,
-    fieldEndTint: Color = colorSecondary,
+    fieldEndTint: Color? = colorSecondary,
     fieldTextStyle: TextStyle = TextStyle.Default,
     // filters settings
     filterChar: String? = null,
@@ -291,7 +291,7 @@ fun CustomFormField(
                         Image(
                             modifier = Modifier.align(alignment = Alignment.CenterEnd),
                             painter = fieldEndIcon,
-                            colorFilter = ColorFilter.tint(fieldEndTint),
+                            colorFilter = fieldEndTint?.let { ColorFilter.tint(it) },
                             contentDescription = null
                         )
                     }
