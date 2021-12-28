@@ -17,10 +17,14 @@ package ru.surfstudio.compose.forms.fields.custom.overload
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import ru.surfstudio.compose.forms.base.FormFieldState
@@ -35,6 +39,13 @@ import ru.surfstudio.compose.forms.fields.custom.CustomFormField
 fun CustomFieldPhone(
     fieldLabel: String,
     modifier: Modifier = Modifier,
+    // ui settings
+    colorDefault: Color = MaterialTheme.colors.onSurface,
+    colorSecondary: Color = Color.Gray,
+    colorError: Color = Color.Red,
+    colorLine: Color = Color.LightGray,
+    cursorBrush: Brush = SolidColor(colorDefault),
+    // field settings
     filterMask: String = "+7 (###) ### ## ##",
     keyboardType: KeyboardType = KeyboardType.Phone,
     formFieldValidate: Boolean = true,
@@ -46,6 +57,11 @@ fun CustomFieldPhone(
     onFocusChange: (FocusState, Boolean) -> Unit = { state, isHashError -> },
 ) = CustomFormField(
     modifier = modifier.fillMaxWidth(),
+    colorDefault = colorDefault,
+    colorSecondary = colorSecondary,
+    colorError = colorError,
+    colorLine = colorLine,
+    cursorBrush = cursorBrush,
     fieldLabel = fieldLabel,
     filterMask = filterMask,
     keyboardType = keyboardType,

@@ -19,10 +19,14 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import ru.surfstudio.compose.forms.R
@@ -43,8 +47,15 @@ fun CustomFieldPassword(
     fieldLabel: String,
     modifier: Modifier = Modifier,
     keyboardType: KeyboardType = KeyboardType.Password,
+    // ui settings
     @DrawableRes icVisibilityOff: Int = R.drawable.ic_visibility_off,
     @DrawableRes icVisibilityOn: Int = R.drawable.ic_visibility,
+    colorDefault: Color = MaterialTheme.colors.onSurface,
+    colorSecondary: Color = Color.Gray,
+    colorError: Color = Color.Red,
+    colorLine: Color = Color.LightGray,
+    cursorBrush: Brush = SolidColor(colorDefault),
+    // field settings
     formFieldValidate: Boolean = true,
     formFieldState: FormFieldState = remember { FormFieldState() },
     enabled: Boolean = true,
@@ -56,13 +67,18 @@ fun CustomFieldPassword(
     onFocusChange: (FocusState, Boolean) -> Unit = { state, isHashError -> },
 ) = CustomFormField(
     modifier = modifier.fillMaxWidth(),
+    keyboardType = keyboardType,
+    icVisibilityOff = icVisibilityOff,
+    icVisibilityOn = icVisibilityOn,
+    colorDefault = colorDefault,
+    colorSecondary = colorSecondary,
+    colorError = colorError,
+    colorLine = colorLine,
+    cursorBrush = cursorBrush,
     fieldLabel = fieldLabel,
     fieldIsPassword = true,
     filterEmoji = true,
     filterChar = filterChar,
-    keyboardType = keyboardType,
-    icVisibilityOff = icVisibilityOff,
-    icVisibilityOn = icVisibilityOn,
     formFieldValidate = formFieldValidate,
     filterMaxLength = filterMaxLength,
     formFieldState = formFieldState,
