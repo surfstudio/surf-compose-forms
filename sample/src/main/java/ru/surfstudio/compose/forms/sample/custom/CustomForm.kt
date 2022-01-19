@@ -166,6 +166,9 @@ fun CustomForm() {
         modifier = Modifier.fillMaxWidth(),
         fieldLabel = "Date",
         fieldEndIcon = painterResource(id = R.drawable.ic_default_date_range_24),
+        onEndIconClicked = {
+            Toast.makeText(context, "end icon clicked", Toast.LENGTH_SHORT).show()
+        },
         formFieldValidate = fromValidate,
         formFieldState = formFields.get(CustomDate),
         enabled = !isLoading,

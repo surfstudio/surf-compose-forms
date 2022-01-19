@@ -96,6 +96,7 @@ fun CustomFormField(
     fieldIsShowLength: Boolean = false,
     fieldEndIcon: Painter? = null,
     fieldEndTint: Color? = colorSecondary,
+    onEndIconClicked: (() -> Unit)? = null,
     // text styles
     topLabelTextStyle: TextStyle = LocalTextStyle.current,
     innerLabelTextStyle: TextStyle = LocalTextStyle.current,
@@ -295,12 +296,20 @@ fun CustomFormField(
                     }
                 } else {
                     fieldEndIcon?.let {
-                        Image(
-                            modifier = Modifier.align(alignment = Alignment.CenterEnd),
-                            painter = fieldEndIcon,
-                            colorFilter = fieldEndTint?.let { ColorFilter.tint(it) },
-                            contentDescription = null
-                        )
+                        Box(
+                            modifier = Modifier
+                                .clip(CircleShape)
+                                .ifTrue(onEndIconClicked != null) {
+                                    then(clickable { onEndIconClicked!!() })
+                                }
+                        ) {
+                            Image(
+                                modifier = Modifier.align(alignment = Alignment.CenterEnd),
+                                painter = fieldEndIcon,
+                                colorFilter = fieldEndTint?.let { ColorFilter.tint(it) },
+                                contentDescription = null
+                            )
+                        }
                     }
                 }
             }
