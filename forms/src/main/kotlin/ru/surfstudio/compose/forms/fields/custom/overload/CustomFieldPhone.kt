@@ -48,6 +48,7 @@ fun CustomFieldPhone(
     colorLine: Color = Color.LightGray,
     cursorBrush: Brush = SolidColor(colorDefault),
     fieldEndTint: Color? = colorSecondary,
+    onEndIconClicked: (() -> Unit)? = null,
     // text styles
     topLabelTextStyle: TextStyle = LocalTextStyle.current,
     innerLabelTextStyle: TextStyle = LocalTextStyle.current,
@@ -72,6 +73,7 @@ fun CustomFieldPhone(
     colorLine = colorLine,
     cursorBrush = cursorBrush,
     fieldEndTint = fieldEndTint,
+    onEndIconClicked = onEndIconClicked,
     topLabelTextStyle = topLabelTextStyle,
     innerLabelTextStyle = innerLabelTextStyle,
     errorTextStyle = errorTextStyle,
