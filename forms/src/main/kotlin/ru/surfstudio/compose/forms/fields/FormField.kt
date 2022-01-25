@@ -30,6 +30,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
@@ -184,11 +185,8 @@ fun FormField(
             .fillMaxWidth()
             .focusRequester(state.focus)
             .bringIntoViewRequester(state.relocation)
-            .onFocusChanged { focusState ->
+            .onFocusEvent { focusState ->
                 if (focusState.isFocused) {
-                    // to end position
-                    state.positionToEnd()
-                    // focus to input
                     scope.launch {
                         delay(300) // keyboard change
                         state.bringIntoView()

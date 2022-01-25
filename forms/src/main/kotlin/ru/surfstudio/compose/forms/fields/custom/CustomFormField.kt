@@ -170,18 +170,9 @@ fun CustomFormField(
                         .bringIntoViewRequester(formFieldState.relocation)
                         .padding(bottom = 7.dp)
                         .onFocusEvent { focusState ->
-                            if (focusState.isFocused && isError.invoke()) {
-                                // bringIntoView delay
+                            if (focusState.isFocused) {
                                 scope.launch {
-                                    delay(100)
-                                    formFieldState.bringIntoView()
-                                }
-                                scope.launch {
-                                    delay(300)
-                                    formFieldState.bringIntoView()
-                                }
-                                scope.launch {
-                                    delay(600)
+                                    delay(300) // keyboard change
                                     formFieldState.bringIntoView()
                                 }
                             }
