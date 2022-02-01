@@ -302,7 +302,7 @@ fun CustomFormField(
                         )
                     }
                 } else {
-                    fieldEndIcon?.let {
+                    if (fieldEndIcon != null) {
                         Box(
                             modifier = Modifier
                                 .clip(CircleShape)

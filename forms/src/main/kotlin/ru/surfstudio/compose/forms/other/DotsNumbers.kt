@@ -208,7 +208,7 @@ fun DotsNumbers(
             }
         }
 
-        error?.let {
+        if (error != null) {
             Spacer(modifier = Modifier.size(4.dp))
 
             Text(
@@ -217,6 +217,8 @@ fun DotsNumbers(
                 text = error,
                 style = errorTextStyle
             )
-        } ?: Spacer(modifier = Modifier.size(22.dp))
+        } else {
+            Spacer(modifier = Modifier.size(22.dp))
+        }
     }
 }

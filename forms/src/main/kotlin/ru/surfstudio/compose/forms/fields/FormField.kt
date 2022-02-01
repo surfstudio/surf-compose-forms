@@ -29,7 +29,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -168,20 +167,20 @@ fun FormField(
                 state.text = onValueChange?.invoke(value) ?: value
             }
         },
-        label = label?.let {
-            {
-                Text(label)
-            }
-        },
-        placeholder = placeholder?.let { { Text(placeholder) } },
-
+        label = if (label != null) {
+            { Text(label) }
+        } else null,
+        placeholder = if (placeholder != null) {
+            { Text(placeholder) }
+        } else null,
         modifier = modifier
-            .defaultMinSize(minHeight = lines?.let {
-                sizeDp
-                    .times(lines)
-                    .plus(40.dp /* body field */)
-            }
-                ?: Dp.Unspecified)
+            .defaultMinSize(
+                minHeight = if (lines != null) {
+                    sizeDp
+                        .times(lines)
+                        .plus(40.dp /* body field */)
+                } else Dp.Unspecified
+            )
             .fillMaxWidth()
             .focusRequester(state.focus)
             .bringIntoViewRequester(state.relocation)
@@ -202,7 +201,7 @@ fun FormField(
         colors = colors
     )
 
-    state.getError(LocalContext.current)?.let { error ->
-        contentError?.invoke() ?: TextFieldError(text = error)
+    state.getError(LocalContext.current)?.apply {
+        contentError?.invoke() ?: TextFieldError(text = this)
     }
 }
