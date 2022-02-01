@@ -1,6 +1,6 @@
 buildscript {
 
-    val kotlinVersion: String = findProperty("kotlinVersion") as? String ?: "1.6.0"
+    val kotlinVersion: String = findProperty("kotlinVersion") as? String ?: "1.6.10"
 
     repositories {
         google()

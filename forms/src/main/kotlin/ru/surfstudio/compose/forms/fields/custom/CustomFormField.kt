@@ -34,6 +34,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
@@ -61,9 +62,24 @@ import ru.surfstudio.compose.forms.R
 import ru.surfstudio.compose.forms.base.FormFieldState
 import ru.surfstudio.compose.forms.base.onValueChangeMask
 import ru.surfstudio.compose.forms.emoji.EmojiUtils
-import ru.surfstudio.compose.modifier.ifFalse
-import ru.surfstudio.compose.modifier.ifTrue
-import ru.surfstudio.compose.modifier.visible
+
+/**
+ * Modifier check bool is FALSE for set params
+ */
+private inline fun Modifier.ifFalse(value: Boolean, block: Modifier.() -> Modifier): Modifier =
+    if (!value) block.invoke(this) else this
+
+/**
+ * Modifier check bool is TRUE for set params
+ */
+private inline fun Modifier.ifTrue(value: Boolean, block: Modifier.() -> Modifier): Modifier =
+    if (value) block.invoke(this) else this
+
+/**
+ * Controlling element visibility based on transparency
+ */
+private fun Modifier.visible(visibility: Boolean): Modifier =
+    this.then(alpha(if (visibility) 1f else 0f))
 
 /**
  * Custom FormField with extended settings
@@ -286,7 +302,7 @@ fun CustomFormField(
                         )
                     }
                 } else {
-                    fieldEndIcon?.let {
+                    if (fieldEndIcon != null) {
                         Box(
                             modifier = Modifier
                                 .clip(CircleShape)
