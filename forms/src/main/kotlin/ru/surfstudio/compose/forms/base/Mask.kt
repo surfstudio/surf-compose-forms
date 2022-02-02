@@ -85,8 +85,8 @@ val onValueChangeMaskState: (String, FormFieldState, TextFieldValue) -> TextFiel
  * @since 0.0.5
  * @author Vitaliy Zarubin
  */
-val onValueChangeMask: (String, FormFieldState, TextFieldValue) -> TextFieldValue =
-    { mask, formState, textFieldValue ->
+val onValueChangeMask: (String, FormFieldState, TextFieldValue, Boolean, Boolean) -> TextFieldValue =
+    { mask, formState, textFieldValue, isFocused, showMaskIfEmpty ->
         val value = textFieldValue.text.take(mask.length)
 
         val state = onValueChangeMaskState.invoke(mask, formState, textFieldValue)
@@ -96,12 +96,17 @@ val onValueChangeMask: (String, FormFieldState, TextFieldValue) -> TextFieldValu
         val clearValue = value.replace("""[^\d]+""".toRegex(), "")
         val clearMask = mask.replace("""[^\d]+""".toRegex(), "")
 
-        if (state == TextFieldState.MOVE && textFieldValue.selection.start < mask.substringBefore("#").length) {
-            if ((textFieldValue.selection.end - textFieldValue.selection.start) > 1) {
+        if (state == TextFieldState.MOVE && textFieldValue.selection.start <= mask.substringBefore("#").length) {
+            if (!showMaskIfEmpty && (textFieldValue.selection.end - textFieldValue.selection.start) > 1) {
                 textFieldValue
             } else {
+                val startMask = mask.substringBefore("#")
                 TextFieldValue(
-                    text = value,
+                    text = when {
+                        isFocused && showMaskIfEmpty && value.isEmpty() -> startMask
+                        !isFocused && value == startMask -> ""
+                        else -> value
+                    },
                     selection = TextRange(
                         mask.substringBefore("#").length + 1,
                         mask.substringBefore("#").length + 1
@@ -109,6 +114,7 @@ val onValueChangeMask: (String, FormFieldState, TextFieldValue) -> TextFieldValu
                 )
             }
         } else if (state == TextFieldState.REMOVE && (clearValue == clearMask || clearValue == "")) {
+            //todo
             TextFieldValue(
                 text = "",
                 selection = TextRange(0, 0)

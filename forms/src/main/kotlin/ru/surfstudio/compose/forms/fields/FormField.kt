@@ -155,13 +155,13 @@ fun FormField(
             }
 
             // maxLength
-            if (value.text.length > maxLength ?: Int.MAX_VALUE) {
+            if (value.text.length > (maxLength ?: Int.MAX_VALUE)) {
                 return@TextField
             }
 
             mask?.let {
                 // mask
-                state.text = onValueChangeMask.invoke(mask, state, value)
+                state.text = onValueChangeMask.invoke(mask, state, value, false, false)
             } ?: run {
                 // custom or default
                 state.text = onValueChange?.invoke(value) ?: value

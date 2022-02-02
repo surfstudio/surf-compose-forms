@@ -205,17 +205,16 @@ fun CustomFormField(
                             // with line
                             strokeWidthLine =
                                 if (isFocusedField) strokeWidth.maxHeight else strokeWidth.minHeight
-                            if (focusState.isFocused) {
-                                // change by mask
-                                filterMask?.let {
-                                    // mask
-                                    formFieldState.text =
-                                        onValueChangeMask.invoke(
-                                            filterMask,
-                                            formFieldState,
-                                            formFieldState.text
-                                        )
-                                }
+                            // change by mask
+                            filterMask?.let {
+                                // mask
+                                formFieldState.text = onValueChangeMask.invoke(
+                                    filterMask,
+                                    formFieldState,
+                                    formFieldState.text,
+                                    isFocusedField,
+                                    true
+                                )
                             }
                         },
                     readOnly = readOnly,
@@ -259,8 +258,13 @@ fun CustomFormField(
                         // change by mask
                         filterMask?.let {
                             // mask
-                            formFieldState.text =
-                                onValueChangeMask.invoke(filterMask, formFieldState, value)
+                            formFieldState.text = onValueChangeMask.invoke(
+                                filterMask,
+                                formFieldState,
+                                value,
+                                isFocusedField,
+                                true
+                            )
                         } ?: run {
                             // custom or default
                             formFieldState.text = value
