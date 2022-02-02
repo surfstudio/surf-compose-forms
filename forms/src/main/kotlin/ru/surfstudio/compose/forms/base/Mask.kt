@@ -130,10 +130,19 @@ val onValueChangeMask: (String, FormFieldState, TextFieldValue) -> TextFieldValu
                                                     "#"
                                                 ).length + 1
                                             ) 1 else 0
-                                        TextRange(
-                                            textFieldValue.selection.start.plus(plus),
-                                            textFieldValue.selection.start.plus(plus)
-                                        )
+                                        if (state == TextFieldState.ADDED) {
+                                            TextRange(
+                                                textFieldValue.selection.start.plus(plus),
+                                                textFieldValue.selection.start.plus(plus)
+                                            )
+                                        } else {
+                                            TextRange(
+                                                textFieldValue.selection.start.minus(plus)
+                                                    .coerceAtLeast(0),
+                                                textFieldValue.selection.start.minus(plus)
+                                                    .coerceAtLeast(0)
+                                            )
+                                        }
                                     } else {
                                         TextRange(mockText.length, mockText.length)
                                     }
