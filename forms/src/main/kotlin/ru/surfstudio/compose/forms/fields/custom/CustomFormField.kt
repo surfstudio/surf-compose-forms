@@ -103,11 +103,13 @@ fun CustomFormField(
     maxLines: Int = 1,
     enabled: Boolean = true,
     readOnly: Boolean = false,
+    clearStartUnfocused: Boolean = false,
     imeAction: ImeAction = ImeAction.Next,
     keyboardActions: KeyboardActions = KeyboardActions(),
     keyboardType: KeyboardType = KeyboardType.Text,
     // field custom settings
     fieldLabel: String,
+    fieldPlaceholder: String? = null,
     fieldIsPassword: Boolean = false,
     fieldIsShowLength: Boolean = false,
     fieldEndIcon: Painter? = null,
@@ -205,19 +207,34 @@ fun CustomFormField(
                             // with line
                             strokeWidthLine =
                                 if (isFocusedField) strokeWidth.maxHeight else strokeWidth.minHeight
-                            if (focusState.isFocused) {
-                                // change by mask
-                                filterMask?.let {
-                                    // mask
-                                    formFieldState.text =
-                                        onValueChangeMask.invoke(
-                                            filterMask,
-                                            formFieldState,
-                                            formFieldState.text
-                                        )
-                                }
+                            // change by mask
+                            filterMask?.let {
+                                // mask
+                                formFieldState.text = onValueChangeMask(
+                                    mask = filterMask,
+                                    formState = formFieldState,
+                                    textFieldValue = formFieldState.text,
+                                    isFocused = isFocusedField,
+                                    clearStartUnfocused = clearStartUnfocused
+                                )
                             }
                         },
+                    decorationBox = { innerTextField ->
+                        if (!fieldPlaceholder.isNullOrEmpty()) {
+                            Box(contentAlignment = Alignment.CenterStart) {
+                                if (isFocusedField && formFieldState.getValue().isEmpty()) {
+                                    Text(
+                                        text = fieldPlaceholder,
+                                        color = colorSecondary,
+                                        style = fieldTextStyle
+                                    )
+                                }
+                                innerTextField()
+                            }
+                        } else {
+                            innerTextField()
+                        }
+                    },
                     readOnly = readOnly,
                     maxLines = maxLines,
                     singleLine = maxLines == 1,
@@ -259,8 +276,13 @@ fun CustomFormField(
                         // change by mask
                         filterMask?.let {
                             // mask
-                            formFieldState.text =
-                                onValueChangeMask.invoke(filterMask, formFieldState, value)
+                            formFieldState.text = onValueChangeMask(
+                                mask = filterMask,
+                                formState = formFieldState,
+                                textFieldValue = value,
+                                isFocused = isFocusedField,
+                                clearStartUnfocused = clearStartUnfocused
+                            )
                         } ?: run {
                             // custom or default
                             formFieldState.text = value
