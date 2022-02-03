@@ -112,13 +112,11 @@ fun onValueChangeMask(
 
     val maskFirstInt =
         if (mask.firstOrNull() == '+' && mask[1] in '0'..'9') mask[1].toString() else null
-    val clearValue = value.replace("""[^\d]+""".toRegex(), "")
-    val clearMask = mask.replace("""[^\d]+""".toRegex(), "")
+    val clearValue = value.getDigitalString()
+    val clearMask = mask.getDigitalString()
     val startMask = mask.substringBefore("#")
 
-    return if (state == TextFieldState.MOVE &&
-        textFieldValue.selection.start <= mask.substringBefore("#").length
-    ) {
+    return if (state == TextFieldState.MOVE && textFieldValue.selection.start <= startMask.length) {
         if (!clearStartUnfocused && (textFieldValue.selection.end - textFieldValue.selection.start) > 1) {
             textFieldValue
         } else {
@@ -200,3 +198,5 @@ fun onValueChangeMask(
         }
     }
 }
+
+private fun String.getDigitalString() = filter(Char::isDigit)
