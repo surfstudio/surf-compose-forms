@@ -32,6 +32,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import ru.surfstudio.compose.forms.base.FormFieldState
 import ru.surfstudio.compose.forms.fields.custom.CustomFormField
 
+const val RU_PHONE_MASK = "+7 (###) ### ## ##"
+
 /**
  * Form field phone
  *
@@ -56,7 +58,7 @@ fun CustomFieldPhone(
     counterTextStyle: TextStyle = LocalTextStyle.current,
     fieldTextStyle: TextStyle = TextStyle.Default,
     // field settings
-    filterMask: String = "+7 (###) ### ## ##",
+    filterMask: String = RU_PHONE_MASK,
     fieldPlaceholder: String? = "+7",
     keyboardType: KeyboardType = KeyboardType.Phone,
     formFieldValidate: Boolean = true,

@@ -129,8 +129,6 @@ private fun filterValue(mask: String, newValue: String, isPastedValue: Boolean):
 /**
  * Main job of providing field masking
  *
- * todo add unit tests
- *
  * @since 0.0.5
  * @author Vitaliy Zarubin
  */
