@@ -103,8 +103,8 @@ val onValueChangeMask: (String, FormFieldState, TextFieldValue) -> TextFieldValu
                 TextFieldValue(
                     text = value,
                     selection = TextRange(
-                        mask.substringBefore("#").length + 1,
-                        mask.substringBefore("#").length + 1
+                        mask.substringBefore("#").length,
+                        mask.substringBefore("#").length
                     )
                 )
             }
