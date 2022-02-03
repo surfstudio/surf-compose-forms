@@ -26,8 +26,12 @@ private const val SHORT_RU_PHONE_LENGTH = 10 // example: 9501234568
  * @since 0.0.5
  * @author Vitaliy Zarubin
  */
-tailrec
-fun mock(text: String, maskFirstInt: String?, valueClear: String, mask1: String): String {
+private tailrec fun mock(
+    text: String,
+    maskFirstInt: String?,
+    valueClear: String,
+    mask1: String
+): String {
     return if (valueClear.isEmpty() || text == maskFirstInt) mask1 else mock(
         text,
         maskFirstInt,
@@ -42,7 +46,7 @@ fun mock(text: String, maskFirstInt: String?, valueClear: String, mask1: String)
  * @since 0.0.5
  * @author Vitaliy Zarubin
  */
-fun String.clearMask(mask: String): String {
+private fun String.clearMask(mask: String): String {
     val value = mask.replace("""[^\d]+""".toRegex(), "")
     return if (this.length <= value.length || !this.contains(value)) {
         this
@@ -70,7 +74,7 @@ enum class TextFieldState {
  * @since 0.0.30
  * @author Margarita Volodina
  */
-val checkOverwrite: (String, FormFieldState, TextFieldValue) -> Boolean =
+private val checkOverwrite: (String, FormFieldState, TextFieldValue) -> Boolean =
     { mask, formState, textFieldValue ->
         formState.getValue().length == mask.length &&
                 textFieldValue.text.length > mask.length
@@ -82,7 +86,7 @@ val checkOverwrite: (String, FormFieldState, TextFieldValue) -> Boolean =
  * @since 0.0.5
  * @author Vitaliy Zarubin
  */
-val onValueChangeMaskState: (String, FormFieldState, TextFieldValue) -> TextFieldState =
+private val onValueChangeMaskState: (String, FormFieldState, TextFieldValue) -> TextFieldState =
     { mask, formState, textFieldValue ->
         val value = textFieldValue.text.take(mask.length)
         when {
@@ -96,9 +100,35 @@ val onValueChangeMaskState: (String, FormFieldState, TextFieldValue) -> TextFiel
     }
 
 /**
+ * Filter value and also handle copy-paste for RU phone number
+ *
+ * @since 0.0.30
+ * @author Margarita Volodina
+ */
+private fun filterValue(mask: String, newValue: String, isPastedValue: Boolean): String {
+    val startMask = mask.substringBefore("#")
+    return if (isPastedValue) {
+        val fixedValue = when {
+            newValue.startsWith(startMask) -> newValue.drop(startMask.length)
+            else -> newValue
+        }.getDigitalString()
+        if (fixedValue.length > SHORT_RU_PHONE_LENGTH && fixedValue.startsWith('8')) {
+            fixedValue.replaceFirst('8', '7')
+        } else {
+            if (!fixedValue.startsWith('7')) {
+                "7$fixedValue"
+            } else {
+                fixedValue.take(mask.length)
+            }
+        }
+    } else {
+        newValue.take(mask.length)
+    }
+}
+
+/**
  * Main job of providing field masking
  *
- * todo add specific for phone
  * todo add unit tests
  *
  * @since 0.0.5
@@ -117,26 +147,9 @@ fun onValueChangeMask(
     val currentValue = formState.getValue()
     val newValue = textFieldValue.text
 
-    // detect copy-paste for RU phone todo refactor in separate class
+    // detect copy-paste for RU phone number
     val isPastedValue = newValue.length - currentValue.length > 1
-
-    val value = if (isPastedValue) {
-        val fixedValue = when {
-            newValue.startsWith(startMask) -> newValue.drop(startMask.length)
-            else -> newValue
-        }.getDigitalString()
-        if (fixedValue.length > SHORT_RU_PHONE_LENGTH && fixedValue.startsWith('8')) {
-            fixedValue.replaceFirst('8', '7')
-        } else {
-            if (!fixedValue.startsWith('7')) {
-                "7$fixedValue"
-            } else {
-                fixedValue.take(mask.length)
-            }
-        }
-    } else {
-        newValue.take(mask.length)
-    }
+    val value = filterValue(mask, newValue, isPastedValue)
 
     val state = onValueChangeMaskState.invoke(mask, formState, textFieldValue)
 
