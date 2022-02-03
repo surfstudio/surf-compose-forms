@@ -45,6 +45,7 @@ import ru.surfstudio.compose.forms.states.PhoneStateValidate
  * @param filter allows you to filter out all characters except those specified in the string
  * @param maxLines the maximum height in terms of maximum number of visible lines.
  * @param singleLine field becomes a single horizontally scrolling text field instead of wrapping onto multiple lines.
+ * @param clearStartUnfocused Clear input if its value is equal to mask start (aka placeholder) and unfocused
  * @param maxLength Maximum allowed field length.
  * @param mask +380 (###) ###-##-##, +7 (###) ###-##-##, +# (###) ###-##-##, ####-####-####-#### etc
  * @param placeholder the optional placeholder to be displayed when the text field is in focus and the input text is empty
@@ -67,6 +68,7 @@ fun FormFieldPhone(
     filter: String? = null,
     maxLines: Int = 1,
     singleLine: Boolean = true,
+    clearStartUnfocused: Boolean = true,
     maxLength: Int? = null,
     mask: String? = null,
     placeholder: String? = null,
@@ -84,6 +86,7 @@ fun FormFieldPhone(
     filter = filter,
     maxLines = maxLines,
     singleLine = singleLine,
+    clearStartUnfocused = clearStartUnfocused,
     maxLength = maxLength,
     mask = mask,
     placeholder = placeholder,

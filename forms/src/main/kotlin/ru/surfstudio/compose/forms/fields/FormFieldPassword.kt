@@ -35,6 +35,7 @@ import ru.surfstudio.compose.forms.base.FormFieldState
  *
  * @param modifier modifier to apply to this layout node.
  * @param enabled controls the enabled state of the TextField.
+ * @param clearStartUnfocused Clear input if its value is equal to mask start (aka placeholder) and unfocused
  * @param label the optional label to be displayed.
  * @param textStyle Styling configuration for a Text.
  * @param imeAction Signals the keyboard what type of action should be displayed. It is not guaranteed if the keyboard will show the requested action.
@@ -55,6 +56,7 @@ import ru.surfstudio.compose.forms.base.FormFieldState
 fun FormFieldPassword(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    clearStartUnfocused: Boolean = false,
     label: String = stringResource(id = R.string.form_fields_password),
     textStyle: TextStyle = LocalTextStyle.current,
     imeAction: ImeAction = ImeAction.Next,
@@ -73,6 +75,7 @@ fun FormFieldPassword(
     FormField(
         modifier = modifier,
         enabled = enabled,
+        clearStartUnfocused = clearStartUnfocused,
         label = label,
         textStyle = textStyle,
         imeAction = imeAction,

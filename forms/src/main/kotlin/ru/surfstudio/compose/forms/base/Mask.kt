@@ -99,8 +99,8 @@ val onValueChangeMaskState: (String, FormFieldState, TextFieldValue) -> TextFiel
  * @since 0.0.5
  * @author Vitaliy Zarubin
  */
-val onValueChangeMask: (String, FormFieldState, TextFieldValue) -> TextFieldValue =
-    { mask, formState, textFieldValue ->
+val onValueChangeMask: (String, FormFieldState, TextFieldValue, Boolean, Boolean) -> TextFieldValue =
+    { mask, formState, textFieldValue, isFocused, clearStartUnfocused ->
         val value = textFieldValue.text.take(mask.length)
 
         val state = onValueChangeMaskState.invoke(mask, formState, textFieldValue)
@@ -110,15 +110,19 @@ val onValueChangeMask: (String, FormFieldState, TextFieldValue) -> TextFieldValu
         val clearValue = value.replace("""[^\d]+""".toRegex(), "")
         val clearMask = mask.replace("""[^\d]+""".toRegex(), "")
 
-        if (state == TextFieldState.MOVE && textFieldValue.selection.start < mask.substringBefore("#").length) {
-            if ((textFieldValue.selection.end - textFieldValue.selection.start) > 1) {
+        if (state == TextFieldState.MOVE && textFieldValue.selection.start <= mask.substringBefore("#").length) {
+            if (!clearStartUnfocused && (textFieldValue.selection.end - textFieldValue.selection.start) > 1) {
                 textFieldValue
             } else {
+                val startMask = mask.substringBefore("#")
                 TextFieldValue(
-                    text = value,
+                    text = when {
+                        !isFocused && clearStartUnfocused && value == startMask -> ""
+                        else -> value
+                    },
                     selection = TextRange(
-                        mask.substringBefore("#").length,
-                        mask.substringBefore("#").length
+                        startMask.length,
+                        startMask.length
                     )
                 )
             }

@@ -67,6 +67,7 @@ fun CustomFieldPassword(
     // field settings
     fieldPlaceholder: String? = null,
     formFieldValidate: Boolean = true,
+    clearStartUnfocused: Boolean = false,
     formFieldState: FormFieldState = remember { FormFieldState() },
     enabled: Boolean = true,
     filterChar: String = DEFAULT_PASSWORD_FILTER,
@@ -97,6 +98,7 @@ fun CustomFieldPassword(
     filterEmoji = true,
     filterChar = filterChar,
     formFieldValidate = formFieldValidate,
+    clearStartUnfocused = clearStartUnfocused,
     filterMaxLength = filterMaxLength,
     formFieldState = formFieldState,
     enabled = enabled,

@@ -103,6 +103,7 @@ fun CustomFormField(
     maxLines: Int = 1,
     enabled: Boolean = true,
     readOnly: Boolean = false,
+    clearStartUnfocused: Boolean = false,
     imeAction: ImeAction = ImeAction.Next,
     keyboardActions: KeyboardActions = KeyboardActions(),
     keyboardType: KeyboardType = KeyboardType.Text,
@@ -206,17 +207,17 @@ fun CustomFormField(
                             // with line
                             strokeWidthLine =
                                 if (isFocusedField) strokeWidth.maxHeight else strokeWidth.minHeight
-                            if (focusState.isFocused) {
-                                // change by mask
-                                filterMask?.let {
-                                    // mask
-                                    formFieldState.text =
-                                        onValueChangeMask.invoke(
-                                            filterMask,
-                                            formFieldState,
-                                            formFieldState.text
-                                        )
-                                }
+                            // change by mask
+                            filterMask?.let {
+                                // mask
+                                formFieldState.text =
+                                    onValueChangeMask.invoke(
+                                        filterMask,
+                                        formFieldState,
+                                        formFieldState.text,
+                                        isFocusedField,
+                                        clearStartUnfocused
+                                    )
                             }
                         },
                     decorationBox = { innerTextField ->
@@ -277,7 +278,13 @@ fun CustomFormField(
                         filterMask?.let {
                             // mask
                             formFieldState.text =
-                                onValueChangeMask.invoke(filterMask, formFieldState, value)
+                                onValueChangeMask.invoke(
+                                    filterMask,
+                                    formFieldState,
+                                    value,
+                                    isFocusedField,
+                                    clearStartUnfocused
+                                )
                         } ?: run {
                             // custom or default
                             formFieldState.text = value

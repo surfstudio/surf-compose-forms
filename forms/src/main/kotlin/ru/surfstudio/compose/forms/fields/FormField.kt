@@ -22,10 +22,7 @@ import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
@@ -67,6 +64,7 @@ import ru.surfstudio.compose.forms.emoji.EmojiUtils
  * @param onValueChange the callback that is triggered when the input service updates values in [TextFieldValue].
  * @param filter allows you to filter out all characters except those specified in the string.
  * @param filterEmoji Prevent or Allow emoji input for KeyboardType.Text
+ * @param clearStartUnfocused Clear input if its value is equal to mask start (aka placeholder) and unfocused
  * @param lines height in lines.
  * @param maxLines the maximum height in terms of maximum number of visible lines.
  * @param singleLine field becomes a single horizontally scrolling text field instead of wrapping onto multiple lines.
@@ -97,6 +95,7 @@ fun FormField(
     onValueChange: ((TextFieldValue) -> TextFieldValue)? = null,
     filter: String? = null,
     filterEmoji: Boolean = false,
+    clearStartUnfocused: Boolean = false,
     lines: Int? = null,
     maxLines: Int = 1,
     singleLine: Boolean = true,
@@ -108,6 +107,7 @@ fun FormField(
 ) {
 
     val scope = rememberCoroutineScope()
+    var isFocusedField: Boolean by remember { mutableStateOf(false) }
 
     val sizeDp = with(LocalDensity.current) {
         textStyle.fontSize.value.sp.toDp() + 3.dp /* space */
@@ -155,13 +155,13 @@ fun FormField(
             }
 
             // maxLength
-            if (value.text.length > maxLength ?: Int.MAX_VALUE) {
+            if (value.text.length > (maxLength ?: Int.MAX_VALUE)) {
                 return@TextField
             }
 
             mask?.let {
                 // mask
-                state.text = onValueChangeMask.invoke(mask, state, value)
+                state.text = onValueChangeMask.invoke(mask, state, value, isFocusedField, clearStartUnfocused)
             } ?: run {
                 // custom or default
                 state.text = onValueChange?.invoke(value) ?: value
@@ -185,11 +185,16 @@ fun FormField(
             .focusRequester(state.focus)
             .bringIntoViewRequester(state.relocation)
             .onFocusEvent { focusState ->
-                if (focusState.isFocused) {
+                isFocusedField = focusState.isFocused
+                if (isFocusedField) {
                     scope.launch {
                         delay(300) // keyboard change
                         state.bringIntoView()
                     }
+                }
+                mask?.let {
+                    // mask
+                    state.text = onValueChangeMask.invoke(mask, state, state.text, isFocusedField, clearStartUnfocused)
                 }
             },
         isError = state.hasErrors,
