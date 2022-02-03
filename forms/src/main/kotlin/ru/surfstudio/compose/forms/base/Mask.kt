@@ -18,6 +18,8 @@ package ru.surfstudio.compose.forms.base
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 
+private const val SHORT_RU_PHONE_LENGTH = 10 // example: 9501234568
+
 /**
  * Convert value to mask
  *
@@ -96,6 +98,9 @@ val onValueChangeMaskState: (String, FormFieldState, TextFieldValue) -> TextFiel
 /**
  * Main job of providing field masking
  *
+ * todo add specific for phone
+ * todo add unit tests
+ *
  * @since 0.0.5
  * @author Vitaliy Zarubin
  */
@@ -106,15 +111,38 @@ fun onValueChangeMask(
     isFocused: Boolean,
     clearStartUnfocused: Boolean
 ): TextFieldValue {
-    val value = textFieldValue.text.take(mask.length)
+    val startMask = mask.substringBefore("#")
+    val clearMask = mask.getDigitalString()
+
+    val currentValue = formState.getValue()
+    val newValue = textFieldValue.text
+
+    // detect copy-paste for RU phone todo refactor in separate class
+    val isPastedValue = newValue.length - currentValue.length > 1
+
+    val value = if (isPastedValue) {
+        val fixedValue = when {
+            newValue.startsWith(startMask) -> newValue.drop(startMask.length)
+            else -> newValue
+        }.getDigitalString()
+        if (fixedValue.length > SHORT_RU_PHONE_LENGTH && fixedValue.startsWith('8')) {
+            fixedValue.replaceFirst('8', '7')
+        } else {
+            if (!fixedValue.startsWith('7')) {
+                "7$fixedValue"
+            } else {
+                fixedValue.take(mask.length)
+            }
+        }
+    } else {
+        newValue.take(mask.length)
+    }
 
     val state = onValueChangeMaskState.invoke(mask, formState, textFieldValue)
 
     val maskFirstInt =
         if (mask.firstOrNull() == '+' && mask[1] in '0'..'9') mask[1].toString() else null
     val clearValue = value.getDigitalString()
-    val clearMask = mask.getDigitalString()
-    val startMask = mask.substringBefore("#")
 
     return if (state == TextFieldState.MOVE && textFieldValue.selection.start <= startMask.length) {
         if (!clearStartUnfocused && (textFieldValue.selection.end - textFieldValue.selection.start) > 1) {
@@ -148,24 +176,27 @@ fun onValueChangeMask(
                             text = mockText,
                             selection = when (state) {
                                 TextFieldState.ADDED, TextFieldState.REMOVE -> {
-                                    if (textFieldValue.selection.start < value.length) {
-                                        val plus =
-                                            if (textFieldValue.selection.start < startMask.length + 1) 1 else 0
-                                        if (state == TextFieldState.ADDED) {
-                                            TextRange(
-                                                textFieldValue.selection.start.plus(plus),
-                                                textFieldValue.selection.start.plus(plus)
-                                            )
-                                        } else {
-                                            TextRange(
-                                                textFieldValue.selection.start.minus(plus)
-                                                    .coerceAtLeast(0),
-                                                textFieldValue.selection.start.minus(plus)
-                                                    .coerceAtLeast(0)
-                                            )
+                                    when {
+                                        isPastedValue || textFieldValue.selection.start >= value.length -> {
+                                            TextRange(mockText.length, mockText.length)
                                         }
-                                    } else {
-                                        TextRange(mockText.length, mockText.length)
+                                        else -> {
+                                            val plus =
+                                                if (textFieldValue.selection.start < startMask.length + 1) 1 else 0
+                                            if (state == TextFieldState.ADDED) {
+                                                TextRange(
+                                                    textFieldValue.selection.start.plus(plus),
+                                                    textFieldValue.selection.start.plus(plus)
+                                                )
+                                            } else {
+                                                TextRange(
+                                                    textFieldValue.selection.start.minus(plus)
+                                                        .coerceAtLeast(0),
+                                                    textFieldValue.selection.start.minus(plus)
+                                                        .coerceAtLeast(0)
+                                                )
+                                            }
+                                        }
                                     }
                                 }
                                 else -> textFieldValue.selection
