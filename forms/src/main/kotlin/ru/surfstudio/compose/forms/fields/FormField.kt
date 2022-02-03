@@ -161,7 +161,13 @@ fun FormField(
 
             mask?.let {
                 // mask
-                state.text = onValueChangeMask.invoke(mask, state, value, isFocusedField, clearStartUnfocused)
+                state.text = onValueChangeMask(
+                    mask = mask,
+                    formState = state,
+                    textFieldValue = value,
+                    isFocused = isFocusedField,
+                    clearStartUnfocused = clearStartUnfocused
+                )
             } ?: run {
                 // custom or default
                 state.text = onValueChange?.invoke(value) ?: value
@@ -194,7 +200,13 @@ fun FormField(
                 }
                 mask?.let {
                     // mask
-                    state.text = onValueChangeMask.invoke(mask, state, state.text, isFocusedField, clearStartUnfocused)
+                    state.text = onValueChangeMask(
+                        mask = mask,
+                        formState = state,
+                        textFieldValue = state.text,
+                        isFocused = isFocusedField,
+                        clearStartUnfocused = clearStartUnfocused
+                    )
                 }
             },
         isError = state.hasErrors,

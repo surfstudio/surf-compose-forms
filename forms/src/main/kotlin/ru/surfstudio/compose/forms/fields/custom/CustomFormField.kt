@@ -210,14 +210,13 @@ fun CustomFormField(
                             // change by mask
                             filterMask?.let {
                                 // mask
-                                formFieldState.text =
-                                    onValueChangeMask.invoke(
-                                        filterMask,
-                                        formFieldState,
-                                        formFieldState.text,
-                                        isFocusedField,
-                                        clearStartUnfocused
-                                    )
+                                formFieldState.text = onValueChangeMask(
+                                    mask = filterMask,
+                                    formState = formFieldState,
+                                    textFieldValue = formFieldState.text,
+                                    isFocused = isFocusedField,
+                                    clearStartUnfocused = clearStartUnfocused
+                                )
                             }
                         },
                     decorationBox = { innerTextField ->
@@ -277,14 +276,13 @@ fun CustomFormField(
                         // change by mask
                         filterMask?.let {
                             // mask
-                            formFieldState.text =
-                                onValueChangeMask.invoke(
-                                    filterMask,
-                                    formFieldState,
-                                    value,
-                                    isFocusedField,
-                                    clearStartUnfocused
-                                )
+                            formFieldState.text = onValueChangeMask(
+                                mask = filterMask,
+                                formState = formFieldState,
+                                textFieldValue = value,
+                                isFocused = isFocusedField,
+                                clearStartUnfocused = clearStartUnfocused
+                            )
                         } ?: run {
                             // custom or default
                             formFieldState.text = value

@@ -99,55 +99,60 @@ val onValueChangeMaskState: (String, FormFieldState, TextFieldValue) -> TextFiel
  * @since 0.0.5
  * @author Vitaliy Zarubin
  */
-val onValueChangeMask: (String, FormFieldState, TextFieldValue, Boolean, Boolean) -> TextFieldValue =
-    { mask, formState, textFieldValue, isFocused, clearStartUnfocused ->
-        val value = textFieldValue.text.take(mask.length)
+fun onValueChangeMask(
+    mask: String,
+    formState: FormFieldState,
+    textFieldValue: TextFieldValue,
+    isFocused: Boolean,
+    clearStartUnfocused: Boolean
+): TextFieldValue {
+    val value = textFieldValue.text.take(mask.length)
 
-        val state = onValueChangeMaskState.invoke(mask, formState, textFieldValue)
+    val state = onValueChangeMaskState.invoke(mask, formState, textFieldValue)
 
-        val maskFirstInt =
-            if (mask.firstOrNull() == '+' && mask[1] in '0'..'9') mask[1].toString() else null
-        val clearValue = value.replace("""[^\d]+""".toRegex(), "")
-        val clearMask = mask.replace("""[^\d]+""".toRegex(), "")
+    val maskFirstInt =
+        if (mask.firstOrNull() == '+' && mask[1] in '0'..'9') mask[1].toString() else null
+    val clearValue = value.replace("""[^\d]+""".toRegex(), "")
+    val clearMask = mask.replace("""[^\d]+""".toRegex(), "")
+    val startMask = mask.substringBefore("#")
 
-        if (state == TextFieldState.MOVE && textFieldValue.selection.start <= mask.substringBefore("#").length) {
-            if (!clearStartUnfocused && (textFieldValue.selection.end - textFieldValue.selection.start) > 1) {
-                textFieldValue
-            } else {
-                val startMask = mask.substringBefore("#")
-                TextFieldValue(
-                    text = when {
-                        !isFocused && clearStartUnfocused && value == startMask -> ""
-                        else -> value
-                    },
-                    selection = TextRange(
-                        startMask.length,
-                        startMask.length
-                    )
-                )
-            }
-        } else if (state == TextFieldState.REMOVE && (clearValue == clearMask || clearValue == "")) {
-            TextFieldValue(
-                text = "",
-                selection = TextRange(0, 0)
-            )
+    return if (state == TextFieldState.MOVE &&
+        textFieldValue.selection.start <= mask.substringBefore("#").length
+    ) {
+        if (!clearStartUnfocused && (textFieldValue.selection.end - textFieldValue.selection.start) > 1) {
+            textFieldValue
         } else {
-            when (state) {
-                TextFieldState.REMOVE, TextFieldState.ADDED, TextFieldState.MOVE -> clearValue.let { text ->
-                    mock(text, maskFirstInt, text.clearMask(mask), mask)
-                        .substringBefore("#")
-                        .dropLastWhile { it !in '0'..'9' && it != '(' }
-                        .take(mask.length)
-                        .let { mockText ->
-                            TextFieldValue(
-                                text = mockText,
-                                selection = when (state) {
-                                    TextFieldState.ADDED, TextFieldState.REMOVE -> if (textFieldValue.selection.start < value.length) {
+            TextFieldValue(
+                text = when {
+                    !isFocused && clearStartUnfocused && value == startMask -> ""
+                    else -> value
+                },
+                selection = TextRange(
+                    startMask.length,
+                    startMask.length
+                )
+            )
+        }
+    } else if (state == TextFieldState.REMOVE && (clearValue == clearMask || clearValue == "")) {
+        TextFieldValue(
+            text = "",
+            selection = TextRange(0, 0)
+        )
+    } else {
+        when (state) {
+            TextFieldState.REMOVE, TextFieldState.ADDED, TextFieldState.MOVE -> clearValue.let { text ->
+                mock(text, maskFirstInt, text.clearMask(mask), mask)
+                    .substringBefore("#")
+                    .dropLastWhile { it !in '0'..'9' && it != '(' }
+                    .take(mask.length)
+                    .let { mockText ->
+                        TextFieldValue(
+                            text = mockText,
+                            selection = when (state) {
+                                TextFieldState.ADDED, TextFieldState.REMOVE -> {
+                                    if (textFieldValue.selection.start < value.length) {
                                         val plus =
-                                            if (textFieldValue.selection.start < mask.substringBefore(
-                                                    "#"
-                                                ).length + 1
-                                            ) 1 else 0
+                                            if (textFieldValue.selection.start < startMask.length + 1) 1 else 0
                                         if (state == TextFieldState.ADDED) {
                                             TextRange(
                                                 textFieldValue.selection.start.plus(plus),
@@ -164,33 +169,34 @@ val onValueChangeMask: (String, FormFieldState, TextFieldValue, Boolean, Boolean
                                     } else {
                                         TextRange(mockText.length, mockText.length)
                                     }
-                                    else -> textFieldValue.selection
                                 }
-                            )
-                        }
-                }
-                TextFieldState.END -> {
-                    val checkOverwrite = checkOverwrite(mask, formState, textFieldValue)
-                    val diff = textFieldValue.text.length - mask.length
-                    TextFieldValue(
-                        text = if (checkOverwrite) {
-                            formState.getValue()
-                        } else {
-                            value.take(mask.length)
-                        },
-                        selection = if (checkOverwrite) {
-                            // if overwrite detected, the position remains the same
-                            TextRange(
-                                textFieldValue.selection.start.minus(diff)
-                                    .coerceAtLeast(0),
-                                textFieldValue.selection.start.minus(diff)
-                                    .coerceAtLeast(0)
-                            )
-                        } else {
-                            textFieldValue.selection
-                        }
-                    )
-                }
+                                else -> textFieldValue.selection
+                            }
+                        )
+                    }
+            }
+            TextFieldState.END -> {
+                val checkOverwrite = checkOverwrite(mask, formState, textFieldValue)
+                val diff = textFieldValue.text.length - mask.length
+                TextFieldValue(
+                    text = if (checkOverwrite) {
+                        formState.getValue()
+                    } else {
+                        value.take(mask.length)
+                    },
+                    selection = if (checkOverwrite) {
+                        // if overwrite detected, the position remains the same
+                        TextRange(
+                            textFieldValue.selection.start.minus(diff)
+                                .coerceAtLeast(0),
+                            textFieldValue.selection.start.minus(diff)
+                                .coerceAtLeast(0)
+                        )
+                    } else {
+                        textFieldValue.selection
+                    }
+                )
             }
         }
     }
+}
