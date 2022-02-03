@@ -50,6 +50,7 @@ fun CustomFieldText(
     colorLine: Color = Color.LightGray,
     cursorBrush: Brush = SolidColor(colorDefault),
     // field settings
+    fieldPlaceholder: String? = null,
     fieldIsShowLength: Boolean = false,
     keyboardType: KeyboardType = KeyboardType.Text,
     formFieldValidate: Boolean = true,
@@ -78,6 +79,7 @@ fun CustomFieldText(
     colorLine = colorLine,
     cursorBrush = cursorBrush,
     fieldLabel = fieldLabel,
+    fieldPlaceholder = fieldPlaceholder,
     fieldIsShowLength = fieldIsShowLength,
     keyboardType = keyboardType,
     formFieldValidate = formFieldValidate,

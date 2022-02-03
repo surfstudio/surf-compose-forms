@@ -57,6 +57,7 @@ fun CustomFieldPhone(
     fieldTextStyle: TextStyle = TextStyle.Default,
     // field settings
     filterMask: String = "+7 (###) ### ## ##",
+    fieldPlaceholder: String? = "+7",
     keyboardType: KeyboardType = KeyboardType.Phone,
     formFieldValidate: Boolean = true,
     formFieldState: FormFieldState = remember { FormFieldState() },
@@ -81,6 +82,7 @@ fun CustomFieldPhone(
     fieldTextStyle = fieldTextStyle,
     fieldLabel = fieldLabel,
     filterMask = filterMask,
+    fieldPlaceholder = fieldPlaceholder,
     keyboardType = keyboardType,
     formFieldValidate = formFieldValidate,
     formFieldState = formFieldState,

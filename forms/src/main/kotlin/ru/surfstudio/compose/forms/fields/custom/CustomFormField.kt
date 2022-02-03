@@ -108,6 +108,7 @@ fun CustomFormField(
     keyboardType: KeyboardType = KeyboardType.Text,
     // field custom settings
     fieldLabel: String,
+    fieldPlaceholder: String? = null,
     fieldIsPassword: Boolean = false,
     fieldIsShowLength: Boolean = false,
     fieldEndIcon: Painter? = null,
@@ -218,6 +219,22 @@ fun CustomFormField(
                                 }
                             }
                         },
+                    decorationBox = { innerTextField ->
+                        if (!fieldPlaceholder.isNullOrEmpty()) {
+                            Box(contentAlignment = Alignment.CenterStart) {
+                                if (isFocusedField && formFieldState.getValue().isEmpty()) {
+                                    Text(
+                                        text = fieldPlaceholder,
+                                        color = colorSecondary,
+                                        style = fieldTextStyle
+                                    )
+                                }
+                                innerTextField()
+                            }
+                        } else {
+                            innerTextField()
+                        }
+                    },
                     readOnly = readOnly,
                     maxLines = maxLines,
                     singleLine = maxLines == 1,

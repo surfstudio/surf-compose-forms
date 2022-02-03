@@ -65,6 +65,7 @@ fun CustomFieldPassword(
     counterTextStyle: TextStyle = LocalTextStyle.current,
     fieldTextStyle: TextStyle = TextStyle.Default,
     // field settings
+    fieldPlaceholder: String? = null,
     formFieldValidate: Boolean = true,
     formFieldState: FormFieldState = remember { FormFieldState() },
     enabled: Boolean = true,
@@ -91,6 +92,7 @@ fun CustomFieldPassword(
     counterTextStyle = counterTextStyle,
     fieldTextStyle = fieldTextStyle,
     fieldLabel = fieldLabel,
+    fieldPlaceholder = fieldPlaceholder,
     fieldIsPassword = true,
     filterEmoji = true,
     filterChar = filterChar,
