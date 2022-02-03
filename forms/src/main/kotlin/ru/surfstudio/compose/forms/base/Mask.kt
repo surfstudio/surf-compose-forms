@@ -63,6 +63,18 @@ enum class TextFieldState {
 }
 
 /**
+ * Check for start overwriting if the value is completed
+ *
+ * @since 0.0.30
+ * @author Margarita Volodina
+ */
+val checkOverwrite: (String, FormFieldState, TextFieldValue) -> Boolean =
+    { mask, formState, textFieldValue ->
+        formState.getValue().length == mask.length &&
+                textFieldValue.text.length > mask.length
+    }
+
+/**
  * Get state events from TextFieldValue
  *
  * @since 0.0.5
@@ -72,6 +84,8 @@ val onValueChangeMaskState: (String, FormFieldState, TextFieldValue) -> TextFiel
     { mask, formState, textFieldValue ->
         val value = textFieldValue.text.take(mask.length)
         when {
+            // disable overwrite completed value
+            checkOverwrite(mask, formState, textFieldValue) -> TextFieldState.END
             formState.getValue().length > value.length -> TextFieldState.REMOVE
             formState.getValue().length < value.length -> TextFieldState.ADDED
             value.length == mask.length && textFieldValue.selection.start == textFieldValue.text.length -> TextFieldState.END
@@ -151,10 +165,28 @@ val onValueChangeMask: (String, FormFieldState, TextFieldValue) -> TextFieldValu
                             )
                         }
                 }
-                TextFieldState.END -> TextFieldValue(
-                    text = value.take(mask.length),
-                    selection = textFieldValue.selection
-                )
+                TextFieldState.END -> {
+                    val checkOverwrite = checkOverwrite(mask, formState, textFieldValue)
+                    val diff = textFieldValue.text.length - mask.length
+                    TextFieldValue(
+                        text = if (checkOverwrite) {
+                            formState.getValue()
+                        } else {
+                            value.take(mask.length)
+                        },
+                        selection = if (checkOverwrite) {
+                            // if overwrite detected, the position remains the same
+                            TextRange(
+                                textFieldValue.selection.start.minus(diff)
+                                    .coerceAtLeast(0),
+                                textFieldValue.selection.start.minus(diff)
+                                    .coerceAtLeast(0)
+                            )
+                        } else {
+                            textFieldValue.selection
+                        }
+                    )
+                }
             }
         }
     }
