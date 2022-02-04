@@ -73,8 +73,11 @@ fun DotsNumbers(
     LaunchedEffect(error) {
         if (isError) {
             state.setValue("")
-            onChange.invoke("")
         }
+    }
+
+    LaunchedEffect(state.text) {
+        onChange.invoke(state.getValue())
     }
 
     state.setMaxValue(count)
@@ -120,7 +123,6 @@ fun DotsNumbers(
                         state.text = textFieldValue.copy(
                             text = textFieldValue.text.filter { it.isDigit() }
                         )
-                        onChange.invoke(state.getValue())
                     }
                 },
             )
