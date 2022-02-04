@@ -119,10 +119,12 @@ fun DotsNumbers(
                     .focusRequester(state.focus),
                 value = state.text,
                 onValueChange = { textFieldValue ->
-                    if (textFieldValue.text.length < pagerCount) {
-                        state.text = textFieldValue.copy(
-                            text = textFieldValue.text.filter { it.isDigit() }
-                        )
+                    if (!isError) {
+                        if (textFieldValue.text.length < pagerCount) {
+                            state.text = textFieldValue.copy(
+                                text = textFieldValue.text.filter { it.isDigit() }
+                            )
+                        }
                     }
                 },
             )
