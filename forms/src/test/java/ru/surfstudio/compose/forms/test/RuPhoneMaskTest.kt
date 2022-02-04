@@ -22,12 +22,9 @@ import ru.surfstudio.compose.forms.base.FormFieldState
 import ru.surfstudio.compose.forms.base.onValueChangeMask
 import ru.surfstudio.compose.forms.fields.custom.overload.RU_PHONE_MASK
 
-class RuPhoneNumberPasteTest {
+class RuPhoneMaskTest {
 
-    private val emptyState = FormFieldState()
-    private val placeHolderState = FormFieldState(RU_PHONE_MASK.substringBefore("#"))
-
-    private val assertedResult = "+7 (950) 123 45 68"
+    private val filledPhone = "+7 (950) 123 45 68"
     private val pastedNumbers = listOf(
         "+79501234568",
         "79501234568",
@@ -35,6 +32,10 @@ class RuPhoneNumberPasteTest {
         "9501234568",
         "9501234568666"
     )
+    private val maskStart = RU_PHONE_MASK.substringBefore("#")
+
+    private val emptyState = FormFieldState()
+    private val placeHolderState = FormFieldState(maskStart)
 
     @Test
     fun testRuPhonePaste() {
@@ -52,9 +53,34 @@ class RuPhoneNumberPasteTest {
                     clearStartUnfocused = false
                 )
                 println("paste number $number, result = \"${result.text}\"")
-                assert(result.text == assertedResult)
-                assert(result.selection == TextRange(assertedResult.length, assertedResult.length))
+                assert(result.text == filledPhone)
+                assert(result.selection == TextRange(filledPhone.length, filledPhone.length))
             }
+        }
+    }
+
+    @Test
+    fun testRemove() {
+        var inputValue = filledPhone.dropLast(1)
+        var formValue = filledPhone
+        while (formValue.isNotEmpty()) {
+            println("\nstart formValue = \"$formValue\", inputValue = \"$inputValue\"")
+            val result = onValueChangeMask(
+                mask = RU_PHONE_MASK,
+                formState = FormFieldState(formValue),
+                textFieldValue = TextFieldValue(inputValue),
+                isFocused = false,
+                clearStartUnfocused = false
+            )
+            println("end formValue = \"$formValue\", result = \"${result.text}\"")
+            val assertedResult = when {
+                inputValue == maskStart -> inputValue // remove until mask start
+                inputValue.length < maskStart.length -> "" // remove mask start (placeholder)
+                else -> formValue.dropLast(1).dropLastWhile { !it.isDigit() } // regular mask remove
+            }
+            assert(result.text == assertedResult)
+            formValue = result.text
+            inputValue = formValue.dropLast(1)
         }
     }
 }

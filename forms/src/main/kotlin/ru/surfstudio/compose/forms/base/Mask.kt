@@ -170,7 +170,7 @@ fun onValueChangeMask(
                 )
             )
         }
-    } else if (state == TextFieldState.REMOVE && (clearValue == clearMask || clearValue == "")) {
+    } else if (state == TextFieldState.REMOVE && newValue.length < startMask.length) {
         TextFieldValue(
             text = "",
             selection = TextRange(0, 0)
