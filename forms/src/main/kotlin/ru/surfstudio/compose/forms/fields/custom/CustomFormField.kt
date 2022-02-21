@@ -34,7 +34,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
@@ -59,27 +58,8 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.surfstudio.compose.forms.R
-import ru.surfstudio.compose.forms.base.FormFieldState
-import ru.surfstudio.compose.forms.base.onValueChangeMask
+import ru.surfstudio.compose.forms.base.*
 import ru.surfstudio.compose.forms.emoji.EmojiUtils
-
-/**
- * Modifier check bool is FALSE for set params
- */
-private inline fun Modifier.ifFalse(value: Boolean, block: Modifier.() -> Modifier): Modifier =
-    if (!value) block.invoke(this) else this
-
-/**
- * Modifier check bool is TRUE for set params
- */
-private inline fun Modifier.ifTrue(value: Boolean, block: Modifier.() -> Modifier): Modifier =
-    if (value) block.invoke(this) else this
-
-/**
- * Controlling element visibility based on transparency
- */
-private fun Modifier.visible(visibility: Boolean): Modifier =
-    this.then(alpha(if (visibility) 1f else 0f))
 
 /**
  * Custom FormField with extended settings
@@ -104,6 +84,7 @@ fun CustomFormField(
     enabled: Boolean = true,
     readOnly: Boolean = false,
     clearStartUnfocused: Boolean = false,
+    applyBringIntoViewRequester: Boolean = true,
     imeAction: ImeAction = ImeAction.Next,
     keyboardActions: KeyboardActions = KeyboardActions(),
     keyboardType: KeyboardType = KeyboardType.Text,
@@ -185,7 +166,13 @@ fun CustomFormField(
                         .fillMaxWidth()
                         .ifTrue(fieldEndIcon != null || fieldIsPassword) { then(padding(end = sizeIcon + 6.dp)) }
                         .focusRequester(formFieldState.focus)
-                        .bringIntoViewRequester(formFieldState.relocation)
+                        .ifTrue(applyBringIntoViewRequester) {
+                            then(
+                                bringIntoViewRequester(
+                                    formFieldState.relocation
+                                )
+                            )
+                        }
                         .padding(bottom = 7.dp)
                         .onFocusEvent { focusState ->
                             if (focusState.isFocused) {
