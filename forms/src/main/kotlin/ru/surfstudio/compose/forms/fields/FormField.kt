@@ -43,6 +43,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.surfstudio.compose.forms.base.FormFieldState
 import ru.surfstudio.compose.forms.base.TextFieldError
+import ru.surfstudio.compose.forms.base.ifTrue
 import ru.surfstudio.compose.forms.base.onValueChangeMask
 import ru.surfstudio.compose.forms.emoji.EmojiUtils
 
@@ -65,6 +66,8 @@ import ru.surfstudio.compose.forms.emoji.EmojiUtils
  * @param filter allows you to filter out all characters except those specified in the string.
  * @param filterEmoji Prevent or Allow emoji input for KeyboardType.Text
  * @param clearStartUnfocused Clear input if its value is equal to mask start (aka placeholder) and unfocused
+ * @param applyBringIntoViewRequester If `bringIntoViewRequester` modifier is used. True by default.
+ * Should be disabled in some cases, for example, if a field is located in HorizontalPager
  * @param lines height in lines.
  * @param maxLines the maximum height in terms of maximum number of visible lines.
  * @param singleLine field becomes a single horizontally scrolling text field instead of wrapping onto multiple lines.
@@ -96,6 +99,7 @@ fun FormField(
     filter: String? = null,
     filterEmoji: Boolean = false,
     clearStartUnfocused: Boolean = false,
+    applyBringIntoViewRequester: Boolean = true,
     lines: Int? = null,
     maxLines: Int = 1,
     singleLine: Boolean = true,
@@ -189,7 +193,7 @@ fun FormField(
             )
             .fillMaxWidth()
             .focusRequester(state.focus)
-            .bringIntoViewRequester(state.relocation)
+            .ifTrue(applyBringIntoViewRequester) { then(bringIntoViewRequester(state.relocation)) }
             .onFocusEvent { focusState ->
                 isFocusedField = focusState.isFocused
                 if (isFocusedField) {
