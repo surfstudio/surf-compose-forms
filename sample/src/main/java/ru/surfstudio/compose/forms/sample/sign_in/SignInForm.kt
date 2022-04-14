@@ -116,6 +116,7 @@ fun SignInForm(
     FormField(
         modifier = Modifier.focusRequester(requesterFieldEmoji),
         label = stringResource(id = R.string.form_name),
+        maxLength = 10,
         enabled = !loading,
         state = formFields.get(SignInFieldsForm.SignInNoEmoji),
         imeAction = ImeAction.Next,
