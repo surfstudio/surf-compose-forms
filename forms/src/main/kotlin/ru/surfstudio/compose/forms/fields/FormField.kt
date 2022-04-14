@@ -149,6 +149,11 @@ fun FormField(
                 })
             } ?: textFieldValue
 
+            // maxLength
+            if (value.text.length > (maxLength ?: Int.MAX_VALUE)) {
+                return@TextField
+            }
+            
             // filter Emoji
             if (filterEmoji) {
                 EmojiUtils.removeEmoji(value.text).let {
@@ -156,11 +161,6 @@ fun FormField(
                         value = value.copy(text = it)
                     }
                 }
-            }
-
-            // maxLength
-            if (value.text.length > (maxLength ?: Int.MAX_VALUE)) {
-                return@TextField
             }
 
             mask?.let {
