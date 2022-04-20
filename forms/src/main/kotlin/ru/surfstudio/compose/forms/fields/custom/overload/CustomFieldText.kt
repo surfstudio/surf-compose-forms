@@ -69,8 +69,7 @@ fun CustomFieldText(
     fieldTextStyle: TextStyle = TextStyle.Default,
     // filters settings
     filterChar: String? = null,
-    filterEmoji: Boolean = true,
-    filterMask: String? = null,
+    filterEmoji: Boolean = false,
     @IntRange(from = 1) filterMaxLength: Int = Int.MAX_VALUE,
     enabled: Boolean = true,
     imeAction: ImeAction = ImeAction.None,
@@ -103,7 +102,6 @@ fun CustomFieldText(
     fieldTextStyle = fieldTextStyle,
     filterChar = filterChar,
     filterEmoji = filterEmoji,
-    filterMask = filterMask,
     filterMaxLength = filterMaxLength,
     enabled = enabled,
     imeAction = imeAction,

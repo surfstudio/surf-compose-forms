@@ -73,8 +73,6 @@ fun CustomFieldPassword(
     enabled: Boolean = true,
     // filters settings
     filterChar: String = DEFAULT_PASSWORD_FILTER,
-    filterEmoji: Boolean = true,
-    filterMask: String? = null,
     @IntRange(from = 1) filterMaxLength: Int = 20,
     imeAction: ImeAction = ImeAction.Next,
     keyboardActions: KeyboardActions = KeyboardActions(),
@@ -103,8 +101,7 @@ fun CustomFieldPassword(
     clearStartUnfocused = clearStartUnfocused,
     applyBringIntoViewRequester = applyBringIntoViewRequester,
     filterChar = filterChar,
-    filterEmoji = filterEmoji,
-    filterMask = filterMask,
+    filterEmoji = true,
     filterMaxLength = filterMaxLength,
     formFieldState = formFieldState,
     enabled = enabled,
