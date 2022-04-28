@@ -15,6 +15,7 @@
  */
 package ru.surfstudio.compose.forms.fields.custom
 
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -55,11 +56,17 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ru.surfstudio.compose.forms.R
 import ru.surfstudio.compose.forms.base.*
 import ru.surfstudio.compose.forms.emoji.EmojiUtils
+
+/**
+ * Change focus job
+ */
+private var job: Job? = null
 
 /**
  * Custom FormField with extended settings
@@ -174,19 +181,21 @@ fun CustomFormField(
                             )
                         }
                         .padding(bottom = 7.dp)
-                        .onFocusEvent { focusState ->
-                            if (focusState.isFocused) {
-                                scope.launch {
-                                    delay(300) // keyboard change
-                                    formFieldState.bringIntoView()
-                                }
-                            }
-                        }
                         .onFocusChanged { focusState ->
                             // on change state focus
                             onFocusChange.invoke(focusState, isError.invoke())
                             // change focus state
                             isFocusedField = focusState.isFocused
+                            // bringIntoView
+                            if (isFocusedField) {
+                                job?.cancel()
+                                job = scope.launch {
+                                    delay(300) // keyboard change
+                                    formFieldState.bringIntoView()
+                                    delay(600) // for slow phone
+                                    formFieldState.bringIntoView()
+                                }
+                            }
                             // fix error
                             if (!isFocusedField && formFieldState.hasErrors) {
                                 isFixError = true
