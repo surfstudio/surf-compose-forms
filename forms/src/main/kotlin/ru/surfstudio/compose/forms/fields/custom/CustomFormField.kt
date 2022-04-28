@@ -15,7 +15,6 @@
  */
 package ru.surfstudio.compose.forms.fields.custom
 
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -39,7 +38,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
