@@ -255,7 +255,9 @@ fun CustomFormField(
                         } ?: textFieldValue
                         // maxLength
                         if (value.text.length > filterMaxLength) {
-                            return@BasicTextField
+                            value = textFieldValue.copy(
+                                text = value.text.take(filterMaxLength)
+                            )
                         }
                         // filter Emoji
                         if (filterEmoji) {
