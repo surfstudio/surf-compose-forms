@@ -161,7 +161,7 @@ fun CustomFormField(
                                 .getValue()
                                 .isNotEmpty()
                         )
-                        .padding(bottom = 4.dp),
+                        .padding(bottom = 5.dp),
                     text = fieldLabel,
                     color = colorSecondary,
                     style = topLabelTextStyle
@@ -178,7 +178,7 @@ fun CustomFormField(
                                 )
                             )
                         }
-                        .padding(bottom = 7.dp)
+                        .padding(bottom = 8.dp)
                         .onFocusChanged { focusState ->
                             // on change state focus
                             onFocusChange.invoke(focusState, isError.invoke())
@@ -339,6 +339,7 @@ fun CustomFormField(
             Text(
                 modifier = Modifier
                     .align(Alignment.CenterStart)
+                    .padding(bottom = 3.dp)
                     .fillMaxWidth()
                     .visible(
                         !isFocusedField && formFieldState
@@ -366,7 +367,9 @@ fun CustomFormField(
             if (isError()) {
                 Box(modifier = Modifier.weight(1f)) {
                     Text(
-                        modifier = Modifier.align(Alignment.TopStart),
+                        modifier = Modifier
+                            .align(Alignment.TopStart)
+                            .padding(top = 4.dp),
                         text = formFieldState.getError(context).orEmpty(),
                         color = colorError,
                         style = errorTextStyle
