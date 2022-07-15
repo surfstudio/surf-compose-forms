@@ -178,7 +178,7 @@ fun CustomFormField(
                                 )
                             )
                         }
-                        .padding(bottom = 8.dp)
+                        .padding(bottom = 10.dp, top = 4.dp)
                         .onFocusChanged { focusState ->
                             // on change state focus
                             onFocusChange.invoke(focusState, isError.invoke())
