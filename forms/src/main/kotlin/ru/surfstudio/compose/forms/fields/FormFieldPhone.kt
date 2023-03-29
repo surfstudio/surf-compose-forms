@@ -40,6 +40,8 @@ import ru.surfstudio.compose.forms.states.PhoneStateValidate
  * @param textStyle Styling configuration for a Text.
  * @param imeAction Signals the keyboard what type of action should be displayed. It is not guaranteed if the keyboard will show the requested action.
  * @param keyboardActions The KeyboardActions class allows developers to specify actions that will be triggered in response to users triggering IME action on the software keyboard.
+ * @param leadingIcon the optional leading icon to be displayed at the beginning of the text field container
+ * @param trailingIcon the optional trailing icon to be displayed at the end of the text field container
  * @param colors TextFieldColors for settings colors
  * @param state remember with FormFieldState for management TextField.
  * @param filter allows you to filter out all characters except those specified in the string
@@ -62,6 +64,8 @@ fun FormFieldPhone(
     textStyle: TextStyle = LocalTextStyle.current,
     imeAction: ImeAction = ImeAction.Next,
     keyboardActions: KeyboardActions = KeyboardActions(),
+    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
     colors: TextFieldColors = TextFieldDefaults.textFieldColors(),
     state: FormFieldState = remember { PhoneStateValidate() },
     onValueChange: ((TextFieldValue) -> TextFieldValue)? = null,
@@ -80,6 +84,8 @@ fun FormFieldPhone(
     textStyle = textStyle,
     imeAction = imeAction,
     keyboardActions = keyboardActions,
+    leadingIcon = leadingIcon,
+    trailingIcon = trailingIcon,
     colors = colors,
     state = state,
     onValueChange = onValueChange,
