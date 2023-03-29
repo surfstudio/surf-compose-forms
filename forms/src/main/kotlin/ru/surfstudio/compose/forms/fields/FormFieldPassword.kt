@@ -40,6 +40,7 @@ import ru.surfstudio.compose.forms.base.FormFieldState
  * @param textStyle Styling configuration for a Text.
  * @param imeAction Signals the keyboard what type of action should be displayed. It is not guaranteed if the keyboard will show the requested action.
  * @param keyboardActions The KeyboardActions class allows developers to specify actions that will be triggered in response to users triggering IME action on the software keyboard.
+ * @param leadingIcon the optional leading icon to be displayed at the beginning of the text field container
  * @param colors TextFieldColors for settings colors
  * @param state remember with FormFieldState for management TextField.
  * @param icVisibilityOff Resources object to query the image file from.
@@ -61,6 +62,7 @@ fun FormFieldPassword(
     textStyle: TextStyle = LocalTextStyle.current,
     imeAction: ImeAction = ImeAction.Next,
     keyboardActions: KeyboardActions = KeyboardActions(),
+    leadingIcon: @Composable (() -> Unit)? = null,
     colors: TextFieldColors = TextFieldDefaults.textFieldColors(),
     state: FormFieldState = remember { FormFieldState() },
     tintIcon: Color = MaterialTheme.colors.primary,
@@ -80,6 +82,7 @@ fun FormFieldPassword(
         textStyle = textStyle,
         imeAction = imeAction,
         keyboardActions = keyboardActions,
+        leadingIcon = leadingIcon,
         colors = colors,
         state = state,
         filter = filter,
